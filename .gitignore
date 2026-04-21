@@ -1,0 +1,7 @@
+__pycache__
+bin
+obj
+tools/dev
+tools/spt
+tools/wtt
+tools/tmp

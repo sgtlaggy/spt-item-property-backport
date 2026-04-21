@@ -12,7 +12,7 @@ UPDATED: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")
 SPT: dict[MongoID, SptItem] = json_load(SPT_DB_TEMPLATES / "items.json")
 
 BACKPORT: dict[MongoID, CloneItem] = {}
-for fp in WTT_BACKPORT_DB.iterdir():
+for fp in WTT_BACKPORT_DB.glob('*.json'):
     BACKPORT.update(json_load2(fp))
 
 
