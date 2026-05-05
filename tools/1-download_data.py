@@ -8,7 +8,7 @@ import json
 from urllib import request
 from pathlib import Path
 
-from utils import json_dump
+from utils import json_dump, hang
 from env import TARKOV_DEV_FILES
 
 AMMO_FILE = TARKOV_DEV_FILES / "ammo.json"
@@ -66,7 +66,6 @@ def main():
     except Exception as e:
         print(e, file=sys.stderr)
 
-
 def download(query: str, fp: Path):
     response = run_query(query)
     gql: GQLResponse = json.loads(response)
@@ -112,3 +111,4 @@ def run_query(query: str) -> bytes:
 
 if __name__ == "__main__":
     main()
+    hang()

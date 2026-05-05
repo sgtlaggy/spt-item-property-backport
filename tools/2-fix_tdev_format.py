@@ -4,7 +4,7 @@ from typing import Any
 
 from env import TARKOV_DEV_FILES, TMP_DIR
 from item_types import MongoID
-from utils import json_dump, json_load
+from utils import json_dump, json_load, hang
 
 ItemProperties = dict[str, Any]
 
@@ -47,7 +47,6 @@ def convert_keys(items: ItemsDict):
         "lightBleedModifier": "LightBleedingDelta",
         "heavyBleedModifier": "HeavyBleedingDelta",
         "conflictingItems": "ConflictingItems",
-        "stackMaxSize": "StackMaxSize",
     }
 
     for mid, props in items.items():
@@ -77,3 +76,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    hang()

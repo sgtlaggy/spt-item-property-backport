@@ -6,7 +6,7 @@ from typing import Any
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
 from item_types import CloneItem, FixedItem, MongoID, SptItem
-from utils import json_dump, json_load, json_load2
+from utils import json_dump, json_load, json_load2, hang
 
 UPDATED: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")
 SPT: dict[MongoID, SptItem] = json_load(SPT_DB_TEMPLATES / "items.json")
@@ -114,3 +114,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    hang()

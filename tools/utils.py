@@ -1,3 +1,4 @@
+import sys
 import json
 from pathlib import Path
 from typing import Any
@@ -13,3 +14,8 @@ def json_load2(fp: Path) -> Any:
 
 def json_dump(obj: Any, fp: Path):
     fp.write_text(json.dumps(obj, indent='\t'))
+
+
+def hang():
+    if sys.argv[1:]:
+        input('Press any key to exit.')
