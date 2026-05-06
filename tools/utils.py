@@ -17,5 +17,5 @@ def json_dump(obj: Any, fp: Path):
 
 
 def hang():
-    if sys.argv[1:]:
-        input('Press any key to exit.')
+    if not sys.argv[1:]:
+        input('Press RETURN to exit.')

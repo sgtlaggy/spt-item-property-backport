@@ -13,6 +13,8 @@ Alternatively set the `WTT_BACKPORT_DB` environment variable or `__DEFAULT_WTT_B
 
 ## 3. Run scripts
 Requires Python. Latest (3.14) should work, no external libraries needed.
+Can be run by double-clicking or on command line.
+If running on command line, add any argument to remove the `Press RETURN to exit.` and immediately exit.
 
 - `tools/1-download_data.py`
   - Query tarkov.dev API for live ammo and item data
