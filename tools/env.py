@@ -5,9 +5,13 @@ __FILE = Path(__file__)
 HERE = __FILE.parent
 
 # These paths are relative to this file.
-__DEFAULT_TARKOV_DEV_FILES = "dev"
-__DEFAULT_SPT_DB_TEMPLATES = "spt"
-__DEFAULT_WTT_BACKPORT_DB = "wtt"
+# Absolute paths can be used instead.
+# If on Windows ensure there is no trailing backslash \ before the closing quote.
+# e.g. r"C:\path\to\files"  not  r"C:\path\to\files\"
+__DEFAULT_TARKOV_DEV_FILES = r"dev"
+__DEFAULT_SPT_DB_TEMPLATES = r"spt"
+__DEFAULT_WTT_BACKPORT_DB = r"wtt"
+
 __DEFAULT_OUT_DIR = "../Resources/db"
 
 TARKOV_DEV_FILES = Path(
