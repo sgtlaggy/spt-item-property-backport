@@ -47,6 +47,9 @@ def convert_keys(items: ItemsDict):
         "lightBleedModifier": "LightBleedingDelta",
         "heavyBleedModifier": "HeavyBleedingDelta",
         "conflictingItems": "ConflictingItems",
+        "stackMaxSize": "StackMaxSize",
+        "accuracyModifier": "Accuracy",
+        "recoilModifier": "Recoil",
     }
 
     for mid, props in items.items():
