@@ -17,6 +17,7 @@ public class Mod(
     DatabaseService _db,
     JsonUtil _json,
     ModHelper _modHelper,
+    DataService _dataService,
     ISptLogger<Mod> _logger
 ) : IOnLoad
 {
@@ -27,11 +28,7 @@ public class Mod(
     {
         try
         {
-            config = _json.DeserializeFromFile<Config>(Path.Join(modDir, "config.json"));
-            if (config is null)
-            {
-                throw new Exception("Failed to load config.");
-            }
+            config = _dataService.GetConfig();
         }
         catch (Exception e)
         {
@@ -42,11 +39,7 @@ public class Mod(
         Dictionary<MongoId, ItemProperties>? changes;
         try
         {
-            changes = await _json.DeserializeFromFileAsync<Dictionary<MongoId, ItemProperties>>(Path.Join(modDir, "db", "items.json"));
-            if (changes is null)
-            {
-                throw new Exception("Failed to load item changes.");
-            }
+            changes = await _dataService.GetItemChanges();
         }
         catch (Exception e)
         {
