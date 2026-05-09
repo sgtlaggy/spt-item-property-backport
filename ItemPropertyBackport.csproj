@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Company>sgtlaggy</Company>
+    <Copyright>Copyright © sgtlaggy 2026</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DistDir>dist</DistDir>
+    <DirToZip>$(DistDir)\zip</DirToZip>
+    <ModDir>$(DirToZip)\SPT\user\mods\$(MSBuildProjectName)</ModDir>
+  </PropertyGroup>
+
+  <Target Name="BuildDist" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <OutputDLL Include="$(TargetPath)"/>
+      <ResourceFiles Include="Resources\**\*.*"/>
+    </ItemGroup>
+
+    <RemoveDir Directories="$(DistDir)"/>
+    <Copy
+        SourceFiles="@(OutputDLL);@(ResourceFiles)"
+        DestinationFolder="$(ModDir)\%(RecursiveDir)"/>
+  </Target>
+  <Target Name="CopyPDB" AfterTargets="BuildDist" Condition="'$(Configuration)' == 'Debug'">
+    <Copy
+        SourceFiles="$(TargetDir)$(TargetName).pdb"
+        DestinationFolder="$(ModDir)"/>
+  </Target>
+  <Target Name="Zip" AfterTargets="BuildDist" Condition="'$(Configuration)' == 'Release'">
+    <ZipDirectory
+        SourceDirectory="$(DirToZip)"
+        DestinationFile="$(DistDir)\$(MSBuildProjectName)-$(Version).zip"/>
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="SPTarkov.Server.Core" Version="4.0.0" />
+    <PackageReference Include="SPTarkov.DI" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>

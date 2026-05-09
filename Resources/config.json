@@ -1,0 +1,23 @@
+{
+    "ChangeProperties": {
+        "BlocksEarpiece": true,
+        "Weight": true,
+        "Ergonomics": true,
+        "Loudness": true,
+        "Accuracy": true,
+        "Recoil": true,
+        "Damage": true,
+        "ArmorDamage": true,
+        "InitialSpeed": true,
+        "Velocity": true,
+        "LightBleedingDelta": true,
+        "HeavyBleedingDelta": true,
+        "PenetrationChanceObstacle": true,
+        "PenetrationPowerDiviation": true,
+        "PenetrationPower": true,
+        "StackMaxSize": true,
+        "ConflictingItems": true
+    },
+    "ExemptItems": [],
+    "OnlyItems": []
+}
