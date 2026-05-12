@@ -15,7 +15,9 @@ namespace ItemPropertyBackport;
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 4)]
 public class Mod(
     DatabaseService _db,
+#if DEBUG
     JsonUtil _json,
+#endif
     ModHelper _modHelper,
     DataService _dataService,
     ISptLogger<Mod> _logger
