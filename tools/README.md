@@ -17,12 +17,12 @@ Can be run by double-clicking or on command line.
 If running on command line, add any argument to remove the `Press RETURN to exit.` and immediately exit.
 
 - `tools/1-download_data.py`
-  - Query tarkov.dev API for live ammo and item data
+  - Query tarkov.dev API for live item data
   - Outputs to `tools/dev/`
-- `tools/2-fix_tdev_format.py`
-  - Merge ammo and items into one file and rename properties to match SPT database.
+- `tools/2-refactor_data.py`
+  - Cleanup, simplify, and make some arbitrary changes to data for easier processing
   - Outputs to `tools/tmp/`
-- `tools/3-compare_items.py`
+- `tools/3-compile_changes.py`
   - Check data from Tarkov.Dev against SPT and WTT backport templates
   - Outputs 2 files:
     - `tools/tmp/review_items.json` - new and old values

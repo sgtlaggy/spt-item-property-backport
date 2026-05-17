@@ -1,4 +1,4 @@
-from typing import TypedDict
+from typing import TypedDict, Any
 
 MongoID = str
 
@@ -8,39 +8,15 @@ class HasID(TypedDict):
 
 
 class FixedItem(HasID):
-    weight: float
-    accuracyModifier: float | None
-    recoilModifier: float | None
-    ergonomicsModifier: float | None
-    blocksHeadphones: bool | None
-    velocity: float | None
-    loudness: int | None
-    conflictingItems: list[HasID]
-    penetrationChance: float | None
-    penetrationPower: float | None
-    penetrationPowerDeviation: float | None
-    initialSpeed: float | None
-    stackMaxSize: float | None
-    damage: float | None
-    armorDamage: float | None
-    lightBleedModifier: float | None
-    heavyBleedModifier: float | None
-
-
-class Properties(TypedDict):
-    Weight: float
-    Ergonomics: float
-    BlocksEarpiece: bool
-    Velocity: float
-    Loudness: int
-    ConflictingItems: list[MongoID]
+    types: list[str]
+    properties: dict[str, Any]
 
 
 class SptItem(TypedDict):
     _id: MongoID
-    _props: Properties
+    _props: dict[str, Any]
 
 
 class CloneItem(TypedDict):
     itemTplToClone: MongoID
-    overrideProperties: Properties
+    overrideProperties: dict[str, Any]

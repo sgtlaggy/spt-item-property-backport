@@ -1,0 +1,107 @@
+{
+  items {
+    id
+    types
+    Accuracy: accuracyModifier
+    Ergonomics: ergonomicsModifier
+    Loudness: loudness
+    Recoil: recoilModifier
+    Velocity: velocity
+    ConflictingItems: conflictingItems {
+      id
+    }
+    properties {
+      ... on ItemPropertiesAmmo {
+        ammoAccr: accuracy
+        ArmorDamage: armorDamage
+        BallisticCoeficient: ballisticCoeficient
+        BulletMassGram: bulletMassGrams
+        Damage: damage
+        DurabilityBurnModificator: durabilityBurnFactor
+        MalfFeedChance: failureToFeedChance
+        FragmentationChance: fragmentationChance
+        HeatFactor: heatFactor
+        HeavyBleedingDelta: heavyBleedModifier
+        InitialSpeed: initialSpeed
+        LightBleedingDelta: lightBleedModifier
+        MalfMisfireChance: misfireChance
+        PenetrationChanceObstacle: penetrationChance
+        PenetrationPower: penetrationPower
+        PenetrationPowerDiviation: penetrationPowerDeviation
+        ammoRec: recoil
+        StackMaxSize: stackMaxSize
+      }
+      ... on ItemPropertiesArmor {
+        BluntThroughput: bluntThroughput
+        weaponErgonomicPenalty: ergoPenalty
+        speedPenaltyPercent: speedPenalty
+        mousePenalty: turnPenalty
+      }
+      ... on ItemPropertiesArmorAttachment {
+        BlindnessProtection: blindnessProtection
+        BluntThroughput: bluntThroughput
+        weaponErgonomicPenalty: ergoPenalty
+        speedPenaltyPercent: speedPenalty
+        mousePenalty: turnPenalty
+      }
+      ... on ItemPropertiesBarrel {
+        CenterOfImpact: centerOfImpact
+        DeviationCurve: deviationCurve
+        DeviationMax: deviationMax
+      }
+      ... on ItemPropertiesChestRig {
+        weaponErgonomicPenalty: ergoPenalty
+        speedPenaltyPercent: speedPenalty
+        mousePenalty: turnPenalty
+      }
+      ... on ItemPropertiesGlasses {
+        BlindnessProtection: blindnessProtection
+        BluntThroughput: bluntThroughput
+        weaponErgonomicPenalty: ergoPenalty
+      }
+      ... on ItemPropertiesHeadphone {
+        AmbientVolume: ambientVolume
+        CompressorAttack: compressorAttack
+        CompressorGain: compressorGain
+        CompressorRelease: compressorRelease
+        CompressorThreshold: compressorThreshold
+        RolloffMultiplier: distanceModifier
+        Distortion: distortion
+        DryVolume: dryVolume
+      }
+      ... on ItemPropertiesHelmet {
+        BlindnessProtection: blindnessProtection
+        BlocksEarpiece: blocksHeadset
+        BluntThroughput: bluntThroughput
+        DeafStrength: deafening
+        weaponErgonomicPenalty: ergoPenalty
+        speedPenaltyPercent: speedPenalty
+        mousePenalty: turnPenalty
+      }
+      ... on ItemPropertiesKey {
+        MaximumNumberOfUsage: uses
+      }
+      ... on ItemPropertiesMagazine {
+        CheckTimeModifier: ammoCheckModifier
+        LoadUnloadModifier: loadModifier
+        MalfunctionChance: malfunctionChance
+      }
+      ... on ItemPropertiesNightVision {
+        DiffuseIntensity: diffuseIntensity
+        Intensity: intensity
+        NoiseIntensity: noiseIntensity
+        NoiseScale: noiseScale
+      }
+      ... on ItemPropertiesWeapon {
+        CameraSnap: cameraSnap
+        CenterOfImpact: centerOfImpact
+        DeviationCurve: deviationCurve
+        DeviationMax: deviationMax
+        RecoilAngle: recoilAngle
+        RecolDispersion: recoilDispersion
+        RecoilForceBack: recoilHorizontal
+        RecoilForceUp: recoilVertical
+      }
+    }
+  }
+}

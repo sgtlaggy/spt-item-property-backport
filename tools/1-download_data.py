@@ -9,49 +9,11 @@ from urllib import request
 from pathlib import Path
 
 from utils import json_dump, hang
-from env import TARKOV_DEV_FILES
+from env import TARKOV_DEV_FILES, HERE
 
-AMMO_FILE = TARKOV_DEV_FILES / "ammo.json"
-AMMO_QUERY = """
-{
-  ammo {
-    item {
-      id
-    }
-    penetrationChance
-    penetrationPower
-    penetrationPowerDeviation
-    accuracyModifier
-    recoilModifier
-    initialSpeed
-    stackMaxSize
-    damage
-    armorDamage
-    lightBleedModifier
-    heavyBleedModifier
-    weight
-  }
-}
-"""
 
 ITEMS_FILE = TARKOV_DEV_FILES / "items.json"
-ITEM_QUERY = """
-{
-  items {
-    id
-    weight
-    accuracyModifier
-    recoilModifier
-    ergonomicsModifier
-    blocksHeadphones
-    velocity
-    loudness
-    conflictingItems {
-      id
-    }
-  }
-}
-"""
+ITEMS_QUERY_FILE = HERE / "items_query.gql"
 
 
 class GQLResponse(TypedDict):
@@ -61,10 +23,10 @@ class GQLResponse(TypedDict):
 
 def main():
     try:
-        download(AMMO_QUERY, AMMO_FILE)
-        download(ITEM_QUERY, ITEMS_FILE)
+        download(ITEMS_QUERY_FILE.read_text(), ITEMS_FILE)
     except Exception as e:
         print(e, file=sys.stderr)
+
 
 def download(query: str, fp: Path):
     response = run_query(query)
