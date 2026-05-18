@@ -4,25 +4,31 @@ All are applied by default but they can be individually disabled by adding
 them to the ‘ExcludeProperties’ list in ‘config.json’.
 To do so, wrap each property name in double quotes and add a comma between properties.
 
-Examples:
+## Examples
 
-(default)
+default
+```
     "ExcludeProperties": [],
+```
 
-(keep SPT ammo stack sizes)
+keep SPT ammo stack sizes
+```
     "ExcludeProperties": ["StackMaxSize"],
+```
 
-(above + keep SPT key use count)
+keep SPT ammo stack sizes + key use count
+```
     "ExcludeProperties": ["StackMaxSize", "MaximumNumberOfUsages"],
+```
 
 
-Properties:
+## Properties
 
-Generic:
+### Generic
 - CanSellOnRagfair    (BSG flea blacklist)
 - ConflictingItems    (item incompatibility)
 
-Weapons, mods:
+### Weapons, mods
 - Accuracy
 - Ergonomics
 - Loudness
@@ -37,12 +43,12 @@ Weapons, mods:
 - RecoilForceBack
 - RecoilForceUp
 
-Magazines:
+### Magazines
 - CheckTimeModifier
 - LoadUnloadModifier
 - MalfunctionChance
 
-Ammo:
+### Ammo
 - AmmoAccr        (accuracy)
 - AmmoRec         (recoil)
 - ArmorDamage
@@ -62,14 +68,14 @@ Ammo:
 - PenetrationPowerDiviation  (not misspelled)
 - StackMaxSize
 
-Armor, rigs, helmets, glasses:
+### Armor, rigs, helmets, glasses
 - BlindnessProtection
 - BluntThroughput
 - MousePenalty           (turn speed)
 - SpeedPenaltyPercent
 - WeaponErgonmicPenalty
 
-Headphones:
+### Headphones
 - AmbientVolume
 - CompressorAttack
 - CompressorGain
@@ -79,11 +85,11 @@ Headphones:
 - Distortion
 - DryVolume
 
-Nightvision:
+### Nightvision
 - DiffuseIntensity
 - Intensity
 - NoiseIntensity
 - NoiseScale
 
-Keys:
+### Keys
 - MaximumNumberOfUsages
