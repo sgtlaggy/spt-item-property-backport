@@ -30,6 +30,13 @@ public class DataService
         changesFile = Path.Join(modDir, "db", "items.json");
 
         config = json.DeserializeFromFile<Config>(configFile);
+
+        // Special-case any misbehaving properties
+        if (config is not null)
+        {
+            // ‘PlayFuzeSound’ is not nullable
+            config.ExcludeProperties.Add("PlayFuzeSound");
+        }
     }
 
     public Config GetConfig()

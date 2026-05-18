@@ -58,9 +58,9 @@ public class Mod(
         TemplateItem? item;
         TemplateItemProperties? dbProps;
 
-        if (config.OnlyItems.Count > 0)
+        if (config.IncludeItems.Count > 0)
         {
-            foreach (var id in config.OnlyItems)
+            foreach (var id in config.IncludeItems)
             {
                 items.TryGetValue(id, out item);
                 dbProps = item?.Properties;
@@ -88,7 +88,7 @@ public class Mod(
             foreach (var change in changes)
             {
                 var id = change.Key;
-                if (config.ExemptItems.Contains(id))
+                if (config.ExcludeItems.Contains(id))
                 {
 #if DEBUG
                     _logger.Warning($"[ItemPropertyBackport] Skipping item {id}.");
@@ -119,92 +119,22 @@ public class Mod(
 
     private void UpdateItem(TemplateItemProperties dbProps, ItemProperties props)
     {
-        var changes = config!.ChangeProperties;
-
-        if (changes.BlocksEarpiece && (props.BlocksEarpiece is not null))
+        var type_props = typeof(TemplateItemProperties).GetProperties();
+        foreach (var prop in type_props)
         {
-            dbProps.BlocksEarpiece = props.BlocksEarpiece;
+            var new_value = prop.GetValue(props);
+            if ((new_value is null) || config!.ExcludeProperties.Contains(prop.Name))
+            {
+                continue;
+            }
+
+            prop.SetValue(dbProps, new_value);
         }
 
-        if (changes.Weight && (props.Weight is not null))
+        if ((props.ConflictingItemsDiff is not null) && !config!.ExcludeProperties.Contains("ConflictingItems"))
         {
-            dbProps.Weight = props.Weight;
-        }
-
-        if (changes.Ergonomics && (props.Ergonomics is not null))
-        {
-            dbProps.Ergonomics = props.Ergonomics;
-        }
-
-        if (changes.Loudness && (props.Loudness is not null))
-        {
-            dbProps.Loudness = props.Loudness;
-        }
-
-        if (changes.Accuracy && (props.Accuracy is not null))
-        {
-            dbProps.Accuracy = props.Accuracy;
-        }
-
-        if (changes.Recoil && (props.Recoil is not null))
-        {
-            dbProps.Recoil = props.Recoil;
-        }
-
-        if (changes.Damage && (props.Damage is not null))
-        {
-            dbProps.Damage = props.Damage;
-        }
-
-        if (changes.ArmorDamage && (props.ArmorDamage is not null))
-        {
-            dbProps.ArmorDamage = props.ArmorDamage;
-        }
-
-        if (changes.InitialSpeed && (props.InitialSpeed is not null))
-        {
-            dbProps.InitialSpeed = props.InitialSpeed;
-        }
-
-        if (changes.Velocity && (props.Velocity is not null))
-        {
-            dbProps.Velocity = props.Velocity;
-        }
-
-        if (changes.LightBleedingDelta && (props.LightBleedingDelta is not null))
-        {
-            dbProps.LightBleedingDelta = props.LightBleedingDelta;
-        }
-
-        if (changes.HeavyBleedingDelta && (props.HeavyBleedingDelta is not null))
-        {
-            dbProps.HeavyBleedingDelta = props.HeavyBleedingDelta;
-        }
-
-        if (changes.PenetrationChanceObstacle && (props.PenetrationChanceObstacle is not null))
-        {
-            dbProps.PenetrationChanceObstacle = props.PenetrationChanceObstacle;
-        }
-
-        if (changes.PenetrationPowerDiviation && (props.PenetrationPowerDiviation is not null))
-        {
-            dbProps.PenetrationPowerDiviation = props.PenetrationPowerDiviation;
-        }
-
-        if (changes.PenetrationPower && (props.PenetrationPower is not null))
-        {
-            dbProps.PenetrationPower = props.PenetrationPower;
-        }
-
-        if (changes.StackMaxSize && (props.StackMaxSize is not null))
-        {
-            dbProps.StackMaxSize = props.StackMaxSize;
-        }
-
-        if (changes.ConflictingItems && (props.ConflictingItems is not null))
-        {
-            var added = props.ConflictingItems[0];
-            var removed = props.ConflictingItems[1];
+            var added = props.ConflictingItemsDiff[0];
+            var removed = props.ConflictingItemsDiff[1];
             if (dbProps.ConflictingItems is null)
             {
                 dbProps.ConflictingItems = added;
