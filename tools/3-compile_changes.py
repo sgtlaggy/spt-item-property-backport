@@ -6,14 +6,14 @@ from typing import Any
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
 from item_types import CloneItem, FixedItem, MongoID, SptItem
-from utils import json_dump, json_load, json_load2, hang
+from utils import hang, json_dump, json_load
 
 LIVE: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")
 SPT: dict[MongoID, SptItem] = json_load(SPT_DB_TEMPLATES / "items.json")
 
 BACKPORT: dict[MongoID, CloneItem] = {}
 for fp in WTT_BACKPORT_DB.glob("*.json"):
-    BACKPORT.update(json_load2(fp))
+    BACKPORT.update(json_load(fp))
 
 
 def get_backport_or_spt(item: MongoID, prop: str) -> Any:
