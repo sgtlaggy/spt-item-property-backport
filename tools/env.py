@@ -11,7 +11,6 @@ HERE = __FILE.parent
 __DEFAULT_TARKOV_DEV_FILES = r"dev"
 __DEFAULT_SPT_DB_TEMPLATES = r"spt"
 __DEFAULT_WTT_BACKPORT_DB = r"wtt"
-
 __DEFAULT_OUT_DIR = "../Resources/db"
 
 TARKOV_DEV_FILES = Path(
@@ -24,4 +23,6 @@ WTT_BACKPORT_DB = Path(
     os.getenv("WTT_BACKPORT_DB") or (HERE / __DEFAULT_WTT_BACKPORT_DB)
 )
 OUT_DIR = Path(os.getenv("OUT_DIR") or (HERE / __DEFAULT_OUT_DIR))
+
+QUERIES_DIR = HERE / "queries"
 TMP_DIR = HERE / "tmp"

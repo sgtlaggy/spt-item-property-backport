@@ -9,10 +9,8 @@ from pathlib import Path
 from typing import Any, TypedDict
 from urllib import request
 
-from env import HERE, TARKOV_DEV_FILES
+from env import QUERIES_DIR, TARKOV_DEV_FILES
 from utils import hang, json_dump
-
-QUERIES_DIR = HERE / "queries"
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument("-Q", "--query", nargs="*")
