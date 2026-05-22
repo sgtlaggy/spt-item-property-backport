@@ -7,11 +7,6 @@ from models import MongoID
 from utils import hang, json_dump, json_load
 
 ItemProperties = dict[str, Any]
-
-ITEMS: list[ItemProperties] = json_load(TARKOV_DEV_FILES / "items.json")
-
-FIXED_ITEMS_F = TMP_DIR / "items.json"
-
 ItemsDict = dict[MongoID, ItemProperties]
 
 
@@ -64,15 +59,24 @@ def simplify_conflicting_items(items: ItemsDict):
         conflicting_items[:] = [i["id"] for i in conflicting_items]
 
 
-def main():
-    items = {item["id"]: item for item in ITEMS}
+def fix_items():
+    input_file = TARKOV_DEV_FILES / "items.json"
+    output_file = TMP_DIR / "items.json"
+
+    raw_items: list[ItemProperties] = json_load(input_file)
+    items = {item["id"]: item for item in raw_items}
+
     move_generic_properties(items)
     fix_percentages(items)
     set_flea_blacklist(items)
     simplify_conflicting_items(items)
 
     TMP_DIR.mkdir(parents=True, exist_ok=True)
-    json_dump(items, FIXED_ITEMS_F)
+    json_dump(items, output_file)
+
+
+def main():
+    fix_items()
 
 
 if __name__ == "__main__":
