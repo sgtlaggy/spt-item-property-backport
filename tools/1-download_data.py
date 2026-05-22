@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 
-from typing import TypedDict, Any
-import sys
+import argparse
 import http
-import ssl
 import json
-from urllib import request
+import ssl
+import sys
 from pathlib import Path
+from typing import Any, TypedDict
+from urllib import request
 
-from utils import json_dump, hang
-from env import TARKOV_DEV_FILES, HERE
+from env import HERE, TARKOV_DEV_FILES
+from utils import hang, json_dump
 
+QUERIES_DIR = HERE / "queries"
 
-ITEMS_FILE = TARKOV_DEV_FILES / "items.json"
-ITEMS_QUERY_FILE = HERE / "items_query.gql"
+PARSER = argparse.ArgumentParser()
+PARSER.add_argument("-Q", "--query", nargs="*")
+ARGS = PARSER.parse_args()
 
 
 class GQLResponse(TypedDict):
@@ -22,10 +25,28 @@ class GQLResponse(TypedDict):
 
 
 def main():
+    if ARGS.query:
+        for basename in ARGS.query:
+            query_file = QUERIES_DIR / f"{basename}.gql"
+            if not query_file.exists():
+                print(f"Error: {query_file.name} not found.", file=sys.stderr)
+                continue
+            download_query(query_file)
+    else:
+        for query_file in QUERIES_DIR.glob("*.gql"):
+            download_query(query_file)
+
+
+def download_query(fp: Path):
+    name = fp.stem
+    out_file = TARKOV_DEV_FILES / f"{name}.json"
+
     try:
-        download(ITEMS_QUERY_FILE.read_text(), ITEMS_FILE)
+        download(fp.read_text(), out_file)
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(f"Error downloading {name}: {e}", file=sys.stderr)
+    else:
+        print(f"Successfully downloaded {name}.")
 
 
 def download(query: str, fp: Path):
