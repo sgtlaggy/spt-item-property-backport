@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-import functools
 import sys
 from typing import Any
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
-from item_types import CloneItem, FixedItem, MongoID, SptItem
+from models import CloneItem, FixedItem, MongoID, SptItem
 from utils import hang, json_dump, json_load
 
 LIVE: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")

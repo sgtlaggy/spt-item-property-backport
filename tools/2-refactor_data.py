@@ -3,8 +3,8 @@
 from typing import Any
 
 from env import TARKOV_DEV_FILES, TMP_DIR
-from item_types import MongoID
-from utils import json_dump, json_load, hang
+from models import MongoID
+from utils import hang, json_dump, json_load
 
 ItemProperties = dict[str, Any]
 
