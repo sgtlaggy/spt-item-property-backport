@@ -1,6 +1,8 @@
-from typing import TypedDict, Any
+from typing import Any, TypedDict
 
 MongoID = str
+
+Dict = dict[str, Any]
 
 
 class HasID(TypedDict):

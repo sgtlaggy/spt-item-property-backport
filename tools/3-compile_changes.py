@@ -4,7 +4,7 @@ import sys
 from typing import Any
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
-from models import CloneItem, FixedItem, MongoID, SptItem
+from models import CloneItem, Dict, FixedItem, MongoID, SptItem
 from utils import hang, json_dump, json_load
 
 LIVE: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")
@@ -50,8 +50,8 @@ def item_exists(item: MongoID) -> bool:
     return item in BACKPORT or item in SPT
 
 
-def compare_properties(mongo: MongoID) -> dict[str, Any]:
-    out: dict[str, Any] = {}
+def compare_properties(mongo: MongoID) -> Dict:
+    out: Dict = {}
     props = LIVE[mongo]["properties"]
 
     for prop, value in props.items():
@@ -82,7 +82,7 @@ def main():
 
     changes: dict[MongoID, Any] = {}
     for mongo, data in review.items():
-        new: dict[str, Any] = {}
+        new: Dict = {}
         for k, v in data.items():
             if k != "ConflictingItems":
                 new[k] = v[0]

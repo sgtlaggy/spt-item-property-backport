@@ -2,16 +2,15 @@
 
 from dataclasses import dataclass, field
 from queue import PriorityQueue
-from typing import Any, Callable, TypeVar
+from typing import Callable, TypeVar
 
 from env import TARKOV_DEV_FILES, TMP_DIR
-from models import MongoID
+from models import Dict, MongoID
 from utils import hang, json_dump, json_load
 
 T = TypeVar("T")
 
 Method = Callable[[T], None]
-PropDict = dict[str, Any]
 
 
 # dataclass with ‘order’ and ‘comapre’ for PriorityQueue sorting
@@ -35,10 +34,10 @@ def fixer(priority: int = 0) -> Callable[[Method], FixerMethod]:
 class DataFixer:
     filename: str
 
-    data: dict[MongoID, PropDict]
+    data: dict[MongoID, Dict]
 
     def load(self):
-        lst: list[PropDict] = json_load(TARKOV_DEV_FILES / self.filename)
+        lst: list[Dict] = json_load(TARKOV_DEV_FILES / self.filename)
         self.data = {thing["id"]: thing for thing in lst}
 
     def save(self):
@@ -77,7 +76,7 @@ class ItemFixer(DataFixer):
         for item in self.data.values():
             # This looks like a place for ‘dict.setdefault’ but
             # the key is always present, just null in some cases.
-            props: PropDict | None = item["properties"]
+            props: Dict | None = item["properties"]
             if props is None:
                 item["properties"] = props = {}
 
@@ -94,7 +93,7 @@ class ItemFixer(DataFixer):
             "LoadUnloadModifier",
         ]
         for item in self.data.values():
-            props: PropDict = item["properties"]
+            props: Dict = item["properties"]
             for prop in properties:
                 val: float | None = props.get(prop)
                 if val:  # not 0 or null

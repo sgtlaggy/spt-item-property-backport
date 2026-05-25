@@ -6,10 +6,11 @@ import json
 import ssl
 import sys
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import TypedDict
 from urllib import request
 
 from env import QUERIES_DIR, TARKOV_DEV_FILES
+from models import Dict
 from utils import hang, json_dump
 
 PARSER = argparse.ArgumentParser()
@@ -19,7 +20,7 @@ ARGS = PARSER.parse_args()
 
 class GQLResponse(TypedDict):
     data: dict[str, list] | None
-    errors: dict[str, Any] | None
+    errors: Dict | None
 
 
 def main():
