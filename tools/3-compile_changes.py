@@ -1,107 +1,94 @@
 #!/usr/bin/env python3
 
 import sys
-from typing import Any
+from typing import Any, Self
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
-from models import CloneItem, Dict, FixedItem, MongoID, SptItem
+from models import CloneItem, Dict, MongoID, SptItem
 from utils import hang, json_dump, json_load
 
-LIVE: dict[MongoID, FixedItem] = json_load(TMP_DIR / "items.json")
-SPT: dict[MongoID, SptItem] = json_load(SPT_DB_TEMPLATES / "items.json")
 
-BACKPORT: dict[MongoID, CloneItem] = {}
-for fp in WTT_BACKPORT_DB.glob("*.json"):
-    BACKPORT.update(json_load(fp))
+class SPTData:
+    spt_items: dict[MongoID, SptItem]
+    wtt_items: dict[MongoID, CloneItem]
 
+    def load(self) -> Self:
+        self.spt_items = json_load(SPT_DB_TEMPLATES / "items.json")
 
-def get_backport_or_spt(item: MongoID, prop: str) -> Any:
-    clone = BACKPORT.get(item)
-    if clone is None:
-        return get_spt(item, prop)
+        self.wtt_items = {}
+        for fp in WTT_BACKPORT_DB.glob("*.json"):
+            self.wtt_items.update(json_load(fp))
 
-    if prop in clone["overrideProperties"]:
-        return clone["overrideProperties"][prop]
-    else:
-        return get_spt(clone["itemTplToClone"], prop)
+        return self
 
+    def get_item_properties(self, mongo: MongoID) -> Dict:
+        clone = self.wtt_items.get(mongo)
+        clone_props = clone["overrideProperties"] if clone else {}
 
-def get_spt(mongo: MongoID, prop: str) -> Any:
-    item = SPT.get(mongo)
-    if item is None:
-        print(f"{mongo} not found.", file=sys.stderr)
-        return
+        base_item_id = clone["itemTplToClone"] if clone else mongo
+        item = self.spt_items.get(base_item_id)
+        if item is None:  # just in case, should never hit
+            msg = f"{base_item_id} not found."
+            raise Exception(msg)
 
-    # sanity check for query typos
-    if prop not in item["_props"] and prop not in {
-        "Accuracy",
-        "Recoil",
-        "Ergonomics",
-        "Loudness",
-        "Velocity",
-    }:
-        print(f"ERROR: {prop} not found on {mongo}")
-        return None
-
-    return item["_props"].get(prop)
+        props = item["_props"].copy()
+        props.update(clone_props)
+        return props
 
 
-def item_exists(item: MongoID) -> bool:
-    return item in BACKPORT or item in SPT
+def compile_item_changes(spt: SPTData):
+    live_items = json_load(TMP_DIR / "items.json")
 
-
-def compare_properties(mongo: MongoID) -> Dict:
-    out: Dict = {}
-    props = LIVE[mongo]["properties"]
-
-    for prop, value in props.items():
-        old_value = get_backport_or_spt(mongo, prop)
-        if (value != old_value) and (value is not None):
-            out[prop] = (value, old_value)
-
-    return out
-
-
-def set_from_list_or_none(val: list | None) -> set:
-    if val:
-        return set(val)
-    return set()
-
-
-def main():
     review: dict[MongoID, Any] = {}
-    for mongo in LIVE.keys():
-        if not item_exists(mongo):
-            print(f"{mongo} not found.", file=sys.stderr)
+    for mongo in live_items.keys():
+        try:
+            spt_props = spt.get_item_properties(mongo)
+        except Exception as e:
+            print(e, file=sys.stderr)
             continue
 
-        new = compare_properties(mongo)
+        review_props = {}
+        props = live_items[mongo]["properties"]
 
-        if new:
-            review[mongo] = new
+        for prop, live_value in props.items():
+            spt_value = spt_props.get(prop)
+            if (live_value != spt_value) and (live_value is not None):
+                review_props[prop] = (live_value, spt_value)
+
+        if review_props:
+            review[mongo] = review_props
 
     changes: dict[MongoID, Any] = {}
     for mongo, data in review.items():
-        new: Dict = {}
+        changed_props: Dict = {}
         for k, v in data.items():
             if k != "ConflictingItems":
-                new[k] = v[0]
+                changed_props[k] = v[0]
                 continue
 
-            new_conflicting = set_from_list_or_none(v[0])
-            old_conflicting = set_from_list_or_none(v[1])
-            added_items = list(new_conflicting - old_conflicting)
-            removed_items = list(old_conflicting - new_conflicting)
+            # sort lists to reduce noise in diffs
+            v[0].sort()
+            v[1].sort()
+            live_conflicting = set(v[0])
+            spt_conflicting = set(v[1])
+            added_items = sorted(live_conflicting - spt_conflicting)
+            removed_items = sorted(spt_conflicting - live_conflicting)
 
             # Rename the property so we can extend SPT’s ‘TemplateItemProperties’
-            new["ConflictingItemsDiff"] = (added_items, removed_items)
+            changed_props["ConflictingItemsDiff"] = (added_items, removed_items)
 
-        changes[mongo] = new
-
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+        changes[mongo] = changed_props
 
     json_dump(review, TMP_DIR / "review_items.json")
     json_dump(changes, OUT_DIR / "items.json")
+
+
+def main():
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    spt_data = SPTData().load()
+
+    compile_item_changes(spt_data)
 
 
 if __name__ == "__main__":
