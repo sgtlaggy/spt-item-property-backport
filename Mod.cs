@@ -24,10 +24,10 @@ public class Mod(
 ) : IOnLoad
 {
     private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
-    private Config? config;
 
     public async Task OnLoad()
     {
+        Config? config;
         try
         {
             config = _dataService.GetConfig();
@@ -38,6 +38,11 @@ public class Mod(
             return;
         }
 
+        await UpdateItems(config);
+    }
+
+    private async Task UpdateItems(Config config)
+    {
         Dictionary<MongoId, ItemProperties>? changes;
         try
         {
@@ -52,7 +57,7 @@ public class Mod(
         var items = _db.GetItems();
 
 #if DEBUG
-        File.WriteAllText(Path.Join(modDir, "before.json"), _json.Serialize(items, true));
+        File.WriteAllText(Path.Join(modDir, "items_before.json"), _json.Serialize(items, true));
 #endif
 
         TemplateItem? item;
@@ -80,7 +85,7 @@ public class Mod(
                     continue;
                 }
 
-                UpdateItem(dbProps, props);
+                UpdateItem(config, dbProps, props);
             }
         }
         else
@@ -106,24 +111,22 @@ public class Mod(
                     continue;
                 }
 
-                UpdateItem(dbProps, change.Value);
+                UpdateItem(config, dbProps, change.Value);
             }
         }
 
 #if DEBUG
-        File.WriteAllText(Path.Join(modDir, "after.json"), _json.Serialize(items, true));
+        File.WriteAllText(Path.Join(modDir, "items_after.json"), _json.Serialize(items, true));
 #endif
-
-        return;
     }
 
-    private void UpdateItem(TemplateItemProperties dbProps, ItemProperties props)
+    private void UpdateItem(Config config, TemplateItemProperties dbProps, ItemProperties props)
     {
         var type_props = typeof(TemplateItemProperties).GetProperties();
         foreach (var prop in type_props)
         {
             var new_value = prop.GetValue(props);
-            if ((new_value is null) || config!.ExcludeProperties.Contains(prop.Name))
+            if ((new_value is null) || config.ExcludeProperties.Contains(prop.Name))
             {
                 continue;
             }
@@ -131,7 +134,7 @@ public class Mod(
             prop.SetValue(dbProps, new_value);
         }
 
-        if ((props.ConflictingItemsDiff is not null) && !config!.ExcludeProperties.Contains("ConflictingItems"))
+        if ((props.ConflictingItemsDiff is not null) && !config.ExcludeProperties.Contains("ConflictingItems"))
         {
             var added = props.ConflictingItemsDiff[0];
             var removed = props.ConflictingItemsDiff[1];
