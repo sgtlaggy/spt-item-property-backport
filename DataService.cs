@@ -7,6 +7,9 @@ using SPTarkov.Server.Core.Utils;
 
 namespace ItemPropertyBackport;
 
+using ItemsDict = Dictionary<MongoId, ItemProperties>;
+
+
 [Injectable]
 public class DataService
 {
@@ -15,8 +18,10 @@ public class DataService
 
     private string modDir;
     private string configFile;
-    private string changesFile;
-    private string changesUrl = "https://raw.githubusercontent.com/sgtlaggy/spt-item-property-backport/refs/heads/master/Resources/db/items.json";
+    private string itemsFile;
+
+    private static string baseUrl = "https://raw.githubusercontent.com/sgtlaggy/spt-item-property-backport/refs/heads/master/Resources/db/";
+    private string itemsUrl = baseUrl + "items.json";
 
     private Config? config;
 
@@ -27,7 +32,7 @@ public class DataService
 
         modDir = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         configFile = Path.Join(modDir, "config.json");
-        changesFile = Path.Join(modDir, "db", "items.json");
+        itemsFile = Path.Join(modDir, "db", "items.json");
 
         config = json.DeserializeFromFile<Config>(configFile);
 
@@ -49,31 +54,29 @@ public class DataService
         return config;
     }
 
-    public async Task<Dictionary<MongoId, ItemProperties>> GetItemChanges()
+    public async Task<ItemsDict> GetItemChanges()
     {
-        var config = GetConfig();
-
-        Dictionary<MongoId, ItemProperties>? changes = null;
-        if (!File.Exists(changesFile))
+        ItemsDict? changes = null;
+        if (!File.Exists(itemsFile))
         {
             _logger.Warning("[ItemPropertyBackport] Item file not found, redownloading.");
-            var response = await GetWithRetries(changesUrl, 2);
+            var response = await GetWithRetries(itemsUrl, 2);
             if (response is not null)
             {
-                changes = _json.Deserialize<Dictionary<MongoId, ItemProperties>>(response);
+                changes = _json.Deserialize<ItemsDict>(response);
 
-                var directory = Path.GetDirectoryName(changesFile)!;
+                var directory = Path.GetDirectoryName(itemsFile)!;
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
 
-                await File.WriteAllTextAsync(changesFile, response);
+                await File.WriteAllTextAsync(itemsFile, response);
             }
         }
         else
         {
-            changes = await _json.DeserializeFromFileAsync<Dictionary<MongoId, ItemProperties>>(changesFile);
+            changes = await _json.DeserializeFromFileAsync<ItemsDict>(itemsFile);
         }
 
         if (changes is null)
