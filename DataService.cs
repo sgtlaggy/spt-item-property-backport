@@ -2,12 +2,16 @@ using System.Reflection;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Common;
+using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Utils;
+
+using Path = System.IO.Path;
 
 namespace ItemPropertyBackport;
 
 using ItemsDict = Dictionary<MongoId, ItemProperties>;
+using QuestsDict = Dictionary<MongoId, Dictionary<MongoId, QuestCondition>>;
 
 
 [Injectable]
@@ -19,9 +23,11 @@ public class DataService
     private string modDir;
     private string configFile;
     private string itemsFile;
+    private string questsFile;
 
     private static string baseUrl = "https://raw.githubusercontent.com/sgtlaggy/spt-item-property-backport/refs/heads/master/Resources/db/";
     private string itemsUrl = baseUrl + "items.json";
+    private string questsUrl = baseUrl + "quests.json";
 
     private Config? config;
 
@@ -33,6 +39,7 @@ public class DataService
         modDir = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
         configFile = Path.Join(modDir, "config.json");
         itemsFile = Path.Join(modDir, "db", "items.json");
+        questsFile = Path.Join(modDir, "db", "quests.json");
 
         config = json.DeserializeFromFile<Config>(configFile);
 
@@ -82,6 +89,39 @@ public class DataService
         if (changes is null)
         {
             throw new Exception("Failed to load item changes.");
+        }
+
+        return changes;
+    }
+
+    public async Task<QuestsDict> GetQuestChanges()
+    {
+        QuestsDict? changes = null;
+        if (!File.Exists(questsFile))
+        {
+            _logger.Warning("[ItemPropertyBackport] Quest file not found, redownloading.");
+            var response = await GetWithRetries(questsUrl, 2);
+            if (response is not null)
+            {
+                changes = _json.Deserialize<QuestsDict>(response);
+
+                var directory = Path.GetDirectoryName(questsFile)!;
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                await File.WriteAllTextAsync(questsFile, response);
+            }
+        }
+        else
+        {
+            changes = await _json.DeserializeFromFileAsync<QuestsDict>(questsFile);
+        }
+
+        if (changes is null)
+        {
+            throw new Exception("Failed to load quest changes.");
         }
 
         return changes;

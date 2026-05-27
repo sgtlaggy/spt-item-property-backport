@@ -1,0 +1,298 @@
+{
+	"5ac23c6186f7741247042bad": {
+		"5accd5e386f77463027e9397": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 45
+			},
+			"id": "5accd5e386f77463027e9397"
+		}
+	},
+	"5ac2426c86f774138762edfe": {
+		"5accd9b686f774112d7173d1": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 56
+			},
+			"id": "5accd9b686f774112d7173d1"
+		}
+	},
+	"5ac2428686f77412450b42bf": {
+		"5accde3686f7740cea1b7ec2": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "5accde3686f7740cea1b7ec2",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 240
+			}
+		}
+	},
+	"5ac242ab86f77412464f68b4": {
+		"5acce08b86f7745f8521fa64": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 36
+			},
+			"id": "5acce08b86f7745f8521fa64"
+		}
+	},
+	"5ac244c486f77413e12cf945": {
+		"5acce11786f77411ed6fa6eb": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 17
+			},
+			"id": "5acce11786f77411ed6fa6eb"
+		}
+	},
+	"5ac244eb86f7741356335af1": {
+		"5accdfdb86f77412265cbfc9": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 37
+			},
+			"id": "5accdfdb86f77412265cbfc9"
+		}
+	},
+	"5ae3270f86f77445ba41d4dd": {
+		"5ae3550b86f7741cf44fc799": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 25
+			},
+			"id": "5ae3550b86f7741cf44fc799"
+		}
+	},
+	"5ae3277186f7745973054106": {
+		"5ae3570b86f7746efa6b4494": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 52
+			},
+			"id": "5ae3570b86f7746efa6b4494"
+		}
+	},
+	"5ae327c886f7745c7b3f2f3f": {
+		"5ae445f386f7744e87761331": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 21
+			},
+			"id": "5ae445f386f7744e87761331"
+		}
+	},
+	"5ae3280386f7742a41359364": {
+		"5ae4479686f7744f6c79b7b3": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 27
+			},
+			"id": "5ae4479686f7744f6c79b7b3"
+		}
+	},
+	"5b47749f86f7746c5d6a5fd4": {
+		"5b47796686f774374f4a8bb1": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 53
+			},
+			"id": "5b47796686f774374f4a8bb1",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 300
+			}
+		}
+	},
+	"5b47799d86f7746c5d6a5fd8": {
+		"5b477b3b86f77401da02e6c4": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 47
+			},
+			"id": "5b477b3b86f77401da02e6c4"
+		}
+	},
+	"5b477b6f86f7747290681823": {
+		"5b477f1486f7743009493232": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"effectiveDistance": {
+				"compareMethod": ">=",
+				"value": 0
+			},
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 40
+			},
+			"id": "5b477f1486f7743009493232",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 380
+			}
+		}
+	},
+	"5b47825886f77468074618d3": {
+		"5b4783ba86f7744d1c353185": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "5b4783ba86f7744d1c353185",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 280
+			}
+		}
+	},
+	"639872fa9b4fb827b200d8e5": {
+		"6398776f93ae507d5858c3a8": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 77
+			},
+			"id": "6398776f93ae507d5858c3a8"
+		}
+	},
+	"639872fc93ae507d5858c3a6": {
+		"63987860c8f8cc12a47b02a6": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 48
+			},
+			"id": "63987860c8f8cc12a47b02a6",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 240
+			},
+			"weight": {
+				"compareMethod": ">=",
+				"value": 0
+			}
+		}
+	},
+	"639872fe8871e1272b10ccf6": {
+		"639879addecada40426d3449": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 50
+			},
+			"id": "639879addecada40426d3449",
+			"recoil": {
+				"compareMethod": "<=",
+				"value": 310
+			}
+		}
+	},
+	"639873003693c63d86328f25": {
+		"63987a4e3693c63d86328f27": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"effectiveDistance": {
+				"compareMethod": ">=",
+				"value": 0
+			},
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 10
+			},
+			"id": "63987a4e3693c63d86328f27",
+			"weight": {
+				"compareMethod": ">=",
+				"value": 0
+			}
+		}
+	},
+	"63987301e11ec11ff5504036": {
+		"63987b49cd51826f7a069b85": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "63987b49cd51826f7a069b85",
+			"weight": {
+				"compareMethod": "<=",
+				"value": 6
+			}
+		},
+		"63987b9c05aa481907106505": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "63987b9c05aa481907106505",
+			"recoil": {
+				"compareMethod": ">=",
+				"value": 0
+			}
+		}
+	},
+	"64f83bb69878a0569d6ecfbe": {
+		"64f83d0eed30ed471f49bcde": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "64f83d0eed30ed471f49bcde",
+			"recoil": {
+				"compareMethod": ">=",
+				"value": 0
+			},
+			"weight": {
+				"compareMethod": "<=",
+				"value": 5
+			}
+		}
+	},
+	"64f83bcdde58fc437700d8fa": {
+		"64f83e9d52fc01298e2c857e": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"id": "64f83e9d52fc01298e2c857e",
+			"recoil": {
+				"compareMethod": ">=",
+				"value": 0
+			}
+		}
+	},
+	"676529af9c90953d090882e7": {
+		"676529af9c90953d090882ea": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 49
+			},
+			"id": "676529af9c90953d090882ea"
+		},
+		"67652a2f4f75e1a9543289ed": {
+			"conditionType": "WeaponAssembly",
+			"dynamicLocale": false,
+			"ergonomics": {
+				"compareMethod": ">=",
+				"value": 0
+			},
+			"id": "67652a2f4f75e1a9543289ed"
+		}
+	}
+}

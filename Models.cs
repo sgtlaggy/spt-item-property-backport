@@ -14,6 +14,9 @@ public record Config
 
     [JsonPropertyName("ExcludeItems")]
     public HashSet<MongoId> ExcludeItems { get; set; } = [];
+
+    [JsonPropertyName("UpdateGunsmith")]
+    public bool UpdateGunsmith { get; set; }
 }
 
 public record ItemProperties : TemplateItemProperties

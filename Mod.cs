@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
@@ -24,6 +26,7 @@ public class Mod(
 ) : IOnLoad
 {
     private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+    private Dictionary<string, List<(double?, double?)>> localeOverrides = [];
 
     public async Task OnLoad()
     {
@@ -39,6 +42,12 @@ public class Mod(
         }
 
         await UpdateItems(config);
+
+        if (config.UpdateGunsmith)
+        {
+            await UpdateQuests(config);
+            UpdateLocales();
+        }
     }
 
     private async Task UpdateItems(Config config)
@@ -148,5 +157,116 @@ public class Mod(
                 dbProps.ConflictingItems.UnionWith(added);
             }
         }
+    }
+
+    private async Task UpdateQuests(Config config)
+    {
+        var changes = await _dataService.GetQuestChanges();
+        var quests = _db.GetQuests();
+
+#if DEBUG
+        File.WriteAllText(Path.Join(modDir, "quests_before.json"), _json.Serialize(quests, true));
+#endif
+
+        foreach (var (questId, questConditions) in changes)
+        {
+            Quest? quest;
+            if (!quests.TryGetValue(questId, out quest))
+            {
+                _logger.Warning($"[ItemPropertyBackport] Quest {questId} not found.");
+                continue;
+            }
+            else if (quest.Conditions.AvailableForFinish is null)
+            {
+                _logger.Warning($"[ItemPropertyBackport] Quest {questId} has null conditions.");
+                continue;
+            }
+
+            List<(double?, double?)> descriptionReplacements = [];
+            foreach (var sptCondition in quest.Conditions.AvailableForFinish)
+            {
+                QuestCondition? newCondition;
+                if (!questConditions.TryGetValue(sptCondition.Id, out newCondition))
+                {
+                    continue;
+                }
+
+                foreach (var prop in typeof(QuestCondition).GetProperties())
+                {
+                    // ignore Id, DynamicLocale, ConditionType
+                    if (prop.GetCustomAttribute<RequiredMemberAttribute>() is not null)
+                    {
+                        continue;
+                    }
+
+                    var newProp = prop.GetValue(newCondition);
+                    if (newProp is null)
+                    {
+                        continue;
+                    }
+
+                    var liveCompare = newProp as ValueCompare;
+                    if (liveCompare is not null)
+                    {
+                        var sptCompare = (ValueCompare)prop.GetValue(sptCondition)!;
+                        descriptionReplacements.Add((liveCompare.Value, sptCompare.Value));
+                    }
+
+                    prop.SetValue(sptCondition, newProp);
+                }
+            }
+
+            if (descriptionReplacements.Count > 0)
+            {
+                localeOverrides.Add(quest.Description, descriptionReplacements);
+            }
+        }
+
+#if DEBUG
+        File.WriteAllText(Path.Join(modDir, "quests_after.json"), _json.Serialize(quests, true));
+#endif
+    }
+
+    private void UpdateLocales()
+    {
+        var locales = _db.GetLocales().Global;
+
+#if DEBUG
+        File.WriteAllText(Path.Join(modDir, "locale_before.json"), _json.Serialize(locales["en"].Value, true));
+#endif
+
+        foreach (var locale in _db.GetLocales().Global.Values)
+        {
+            locale.AddTransformer(UpdateLocale);
+        }
+
+#if DEBUG
+        File.WriteAllText(Path.Join(modDir, "locale_after.json"), _json.Serialize(locales["en"].Value, true));
+#endif
+    }
+
+    private Dictionary<string, string>? UpdateLocale(Dictionary<string, string>? loc)
+    {
+        if (loc is null)
+        {
+            return loc;
+        }
+
+        foreach (var (key, replacements) in localeOverrides)
+        {
+            string? desc;
+            if (!loc.TryGetValue(key, out desc))
+            {
+                continue;
+            }
+
+            foreach (var (live, spt) in replacements)
+            {
+                desc = Regex.Replace(desc, $"\\b{spt}\\b", live.ToString()!);
+            }
+            loc[key] = desc;
+        }
+
+        return loc;
     }
 }

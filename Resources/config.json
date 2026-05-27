@@ -1,5 +1,6 @@
 {
     "ExcludeProperties": [],
     "IncludeItems": [],
-    "ExcludeItems": []
+    "ExcludeItems": [],
+    "UpdateGunsmith": true
 }
