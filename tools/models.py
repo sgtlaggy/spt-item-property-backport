@@ -22,3 +22,25 @@ class SptItem(TypedDict):
 class CloneItem(TypedDict):
     itemTplToClone: MongoID
     overrideProperties: dict[str, Any]
+
+
+class WeaponAssemblyCondition(TypedDict):
+    compareMethod: str
+    value: float
+
+
+class FixedQuestObjective(HasID):
+    attributes: dict[str, WeaponAssemblyCondition]
+
+
+class FixedQuest(HasID):
+    objectives: list[FixedQuestObjective]
+
+
+class SptQuestConditions(TypedDict):
+    AvailableForFinish: list[Dict]
+
+
+class SptQuest(TypedDict):
+    _id: MongoID
+    conditions: SptQuestConditions

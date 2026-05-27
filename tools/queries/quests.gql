@@ -1,0 +1,27 @@
+{
+  tasks {
+    id
+
+    objectives {
+      ... on TaskObjectiveBuildItem {
+        id
+        item {
+          id
+        }
+        containsCategory {
+          id
+        }
+        containsAll {
+          id
+        }
+        attributes {
+          requirement {
+            compareMethod
+            value
+          }
+          name
+        }
+      }
+    }
+  }
+}

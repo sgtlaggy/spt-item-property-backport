@@ -113,10 +113,58 @@ class ItemFixer(DataFixer):
             conflicting_items[:] = [i["id"] for i in conflicting_items]
 
 
+class QuestFixer(DataFixer):
+    filename = "quests.json"
+
+    @fixer(1)
+    def filter_weapon_assembly_quests(self):
+        to_remove: list[MongoID] = []
+        for quest_id, quest in self.data.items():
+            assembly_objectives = list(filter(None, quest["objectives"]))
+            if not assembly_objectives:
+                to_remove.append(quest_id)
+                continue
+
+            quest["objectives"] = assembly_objectives
+
+        for quest_id in to_remove:
+            self.data.pop(quest_id)
+
+    @fixer(2)
+    def attributes_list_to_dict(self):
+        name_translation = {"accuracy": "baseAccuracy"}
+        for quest in self.data.values():
+            for objective in quest["objectives"]:
+                new_attributes: Dict = {}
+                attrs: list[Dict] = objective.pop("attributes")
+                for attr in attrs:
+                    name: str = name_translation.get(attr["name"], attr["name"])
+                    new_attributes[name] = attr["requirement"]
+                objective["attributes"] = new_attributes
+
+    @fixer(3)
+    def move_conditions(self):
+        for quest in self.data.values():
+            for objective in quest["objectives"]:
+                attrs = objective["attributes"]
+
+                weapon_id = objective.pop("item")["id"]
+                attrs["target"] = [weapon_id]
+
+                attrs["containsItems"] = has_all_items = []
+                for item in objective.pop("containsAll"):
+                    has_all_items.append(item["id"])
+
+                attrs["hasItemFromCategory"] = has_category = []
+                for category in objective.pop("containsCategory"):
+                    has_category.append(category["id"])
+
+
 def main():
     TMP_DIR.mkdir(parents=True, exist_ok=True)
 
     ItemFixer().fix()
+    QuestFixer().fix()
 
 
 if __name__ == "__main__":
