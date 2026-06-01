@@ -5,17 +5,35 @@ from copy import deepcopy
 from typing import Any, Self
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
-from models import CloneItem, Dict, FixedQuest, MongoID, SptItem, SptQuest
+from models import (
+    CloneItem,
+    Dict,
+    FixedQuest,
+    MongoID,
+    Prices,
+    SptHandbook,
+    SptItem,
+    SptQuest,
+)
 from utils import hang, json_dump, json_load
 
 
 class SPTData:
     items: dict[MongoID, SptItem]
     quests: dict[MongoID, SptQuest]
+    prices: dict[MongoID, Prices]
 
     def load(self) -> Self:
         self.items = json_load(SPT_DB_TEMPLATES / "items.json")
         self.quests = json_load(SPT_DB_TEMPLATES / "quests.json")
+
+        self.prices = {}
+        handbook: SptHandbook = json_load(SPT_DB_TEMPLATES / "handbook.json")
+        prices: dict[MongoID, int] = json_load(SPT_DB_TEMPLATES / "prices.json")
+        for hb_item in handbook["Items"]:
+            mongo = hb_item["Id"]
+            flea_price = prices.get(mongo)
+            self.prices[mongo] = {"Handbook": hb_item["Price"], "Flea": flea_price}
 
         for fp in WTT_BACKPORT_DB.glob("*.json"):
             wtt_items: dict[MongoID, CloneItem] = json_load(fp)
@@ -23,6 +41,11 @@ class SPTData:
                 item: SptItem = deepcopy(self.items[clone["itemTplToClone"]])
                 item["_props"].update(clone["overrideProperties"])
                 self.items[mongo] = item
+
+                self.prices[mongo] = {
+                    "Handbook": clone.get("handbookPriceRoubles"),
+                    "Flea": clone.get("fleaPriceRoubles"),
+                }
 
         return self
 
@@ -33,6 +56,15 @@ class SPTData:
             raise Exception(msg)
 
         return item["_props"]
+
+    def get_item_prices(self, mongo: MongoID) -> Prices:
+        """Returns item price as (handbook, flea)."""
+        prices = self.prices.get(mongo)
+        if prices is None:
+            msg = f"Prices for {mongo} not found."
+            raise Exception(msg)
+
+        return prices
 
     def get_quest_objectives(self, mongo: MongoID) -> list[Dict]:
         quest = self.quests.get(mongo)
@@ -136,6 +168,29 @@ def compile_quest_changes(spt: SPTData):  # noqa: C901
     json_dump(changes, OUT_DIR / "quests.json")
 
 
+def compile_price_changes(spt: SPTData):
+    live_prices: dict[MongoID, Prices] = json_load(TMP_DIR / "prices.json")
+
+    review: dict[MongoID, tuple[Prices, Prices | None]] = {}
+
+    for mongo, live_price in live_prices.items():
+        try:
+            spt_price = spt.get_item_prices(mongo)
+        except Exception as e:
+            print(e, file=sys.stderr)
+            continue
+
+        if spt_price == live_price:
+            continue
+
+        review[mongo] = (live_price, spt_price)
+
+    changes = {mongo: prices[0] for mongo, prices in review.items()}
+
+    json_dump(review, TMP_DIR / "review_prices.json")
+    json_dump(changes, OUT_DIR / "prices.json")
+
+
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -143,6 +198,7 @@ def main():
 
     compile_item_changes(spt_data)
     compile_quest_changes(spt_data)
+    compile_price_changes(spt_data)
 
 
 if __name__ == "__main__":

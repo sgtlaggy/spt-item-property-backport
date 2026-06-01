@@ -2,6 +2,10 @@
   items {
     id
     types
+
+    HandbookPrice: basePrice
+    FleaPrice: avg24hPrice
+
     Accuracy: accuracyModifier
     Ergonomics: ergonomicsModifier
     Loudness: loudness

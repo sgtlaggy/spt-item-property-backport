@@ -22,6 +22,8 @@ class SptItem(TypedDict):
 class CloneItem(TypedDict):
     itemTplToClone: MongoID
     overrideProperties: Dict
+    fleaPriceRoubles: int
+    handbookPriceRoubles: int
 
 
 class WeaponAssemblyCondition(TypedDict):
@@ -44,3 +46,19 @@ class SptQuestConditions(TypedDict):
 class SptQuest(TypedDict):
     _id: MongoID
     conditions: SptQuestConditions
+
+
+class SptHandbookItem(TypedDict):
+    Id: MongoID
+    ParentId: MongoID
+    Price: int
+
+
+class SptHandbook(TypedDict):
+    Categories: list[Dict]
+    Items: list[SptHandbookItem]
+
+
+class Prices(TypedDict):
+    Handbook: int
+    Flea: int | None

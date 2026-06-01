@@ -5,7 +5,7 @@ from queue import PriorityQueue
 from typing import Callable, TypeVar
 
 from env import TARKOV_DEV_FILES, TMP_DIR
-from models import Dict, MongoID
+from models import Dict, MongoID, Prices
 from utils import hang, json_dump, json_load
 
 T = TypeVar("T")
@@ -60,6 +60,18 @@ class DataFixer:
 
 class ItemFixer(DataFixer):
     filename = "items.json"
+
+    @fixer(0)
+    def extract_prices(self):
+        prices: dict[MongoID, Prices] = {}
+
+        for mongo, item in self.data.items():
+            prices[mongo] = {
+                "Handbook": item.pop("HandbookPrice"),
+                "Flea": item.pop("FleaPrice"),
+            }
+
+        json_dump(prices, TMP_DIR / "prices.json")
 
     @fixer(1)
     def move_generic_properties(self):
