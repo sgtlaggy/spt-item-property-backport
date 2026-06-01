@@ -10,7 +10,7 @@ public record Config
     public HashSet<string> ExcludeProperties { get; set; } = new();
 
     [JsonPropertyName("IncludeItems")]
-    public List<MongoId> IncludeItems { get; set; } = [];
+    public HashSet<MongoId> IncludeItems { get; set; } = [];
 
     [JsonPropertyName("ExcludeItems")]
     public HashSet<MongoId> ExcludeItems { get; set; } = [];

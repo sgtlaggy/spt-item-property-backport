@@ -69,64 +69,41 @@ public class Mod(
         File.WriteAllText(Path.Join(modDir, "items_before.json"), _json.Serialize(items, true));
 #endif
 
-        TemplateItem? item;
-        TemplateItemProperties? dbProps;
-
-        if (config.IncludeItems.Count > 0)
+        ItemProperties? liveProps;
+        foreach (var item in items.Values)
         {
-            foreach (var id in config.IncludeItems)
+            if (item.Properties is null)
             {
-                items.TryGetValue(id, out item);
-                dbProps = item?.Properties;
-                if (dbProps is null)
-                {
-#if DEBUG
-                    _logger.Warning($"[ItemPropertyBackport] Item {id} not found in DB.");
-#endif
-                    continue;
-                }
-
-                ItemProperties? props;
-                var found = changes.TryGetValue(id, out props);
-                if (!found || (props is null))
-                {
-                    _logger.Warning($"[ItemPropertyBackport] No changes for item {id}.");
-                    continue;
-                }
-
-                UpdateItem(config, dbProps, props);
+                continue;
             }
-        }
-        else
-        {
-            foreach (var change in changes)
+
+            if ((config.IncludeItems.Count > 0) && !ContainsItemOrParent(config.IncludeItems, item))
             {
-                var id = change.Key;
-                if (config.ExcludeItems.Contains(id))
-                {
-#if DEBUG
-                    _logger.Warning($"[ItemPropertyBackport] Skipping item {id}.");
-#endif
-                    continue;
-                }
-
-                items.TryGetValue(id, out item);
-                dbProps = item?.Properties;
-                if (dbProps is null)
-                {
-#if DEBUG
-                    _logger.Warning($"[ItemPropertyBackport] Item {id} not found in DB.");
-#endif
-                    continue;
-                }
-
-                UpdateItem(config, dbProps, change.Value);
+                continue;
             }
+
+            if (ContainsItemOrParent(config.ExcludeItems, item))
+            {
+                continue;
+            }
+
+            var hasChanges = changes.TryGetValue(item.Id, out liveProps);
+            if (!hasChanges || (liveProps is null))
+            {
+                continue;
+            }
+
+            UpdateItem(config, item.Properties, liveProps);
         }
 
 #if DEBUG
         File.WriteAllText(Path.Join(modDir, "items_after.json"), _json.Serialize(items, true));
 #endif
+    }
+
+    public bool ContainsItemOrParent(HashSet<MongoId> set, TemplateItem item)
+    {
+        return set.Contains(item.Id) || set.Contains(item.Parent);
     }
 
     private void UpdateItem(Config config, TemplateItemProperties dbProps, ItemProperties props)
