@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+from copy import deepcopy
 from typing import Any, Self
 
 from env import OUT_DIR, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
@@ -9,36 +10,32 @@ from utils import hang, json_dump, json_load
 
 
 class SPTData:
-    spt_items: dict[MongoID, SptItem]
-    spt_quests: dict[MongoID, SptQuest]
-    wtt_items: dict[MongoID, CloneItem]
+    items: dict[MongoID, SptItem]
+    quests: dict[MongoID, SptQuest]
 
     def load(self) -> Self:
-        self.spt_items = json_load(SPT_DB_TEMPLATES / "items.json")
-        self.spt_quests = json_load(SPT_DB_TEMPLATES / "quests.json")
+        self.items = json_load(SPT_DB_TEMPLATES / "items.json")
+        self.quests = json_load(SPT_DB_TEMPLATES / "quests.json")
 
-        self.wtt_items = {}
         for fp in WTT_BACKPORT_DB.glob("*.json"):
-            self.wtt_items.update(json_load(fp))
+            wtt_items: dict[MongoID, CloneItem] = json_load(fp)
+            for mongo, clone in wtt_items.items():
+                item: SptItem = deepcopy(self.items[clone["itemTplToClone"]])
+                item["_props"].update(clone["overrideProperties"])
+                self.items[mongo] = item
 
         return self
 
     def get_item_properties(self, mongo: MongoID) -> Dict:
-        clone = self.wtt_items.get(mongo)
-        clone_props = clone["overrideProperties"] if clone else {}
-
-        base_item_id = clone["itemTplToClone"] if clone else mongo
-        item = self.spt_items.get(base_item_id)
+        item = self.items.get(mongo)
         if item is None:  # just in case, should never hit
-            msg = f"Item {base_item_id} not found."
+            msg = f"Item {mongo} not found."
             raise Exception(msg)
 
-        props = item["_props"].copy()
-        props.update(clone_props)
-        return props
+        return item["_props"]
 
     def get_quest_objectives(self, mongo: MongoID) -> list[Dict]:
-        quest = self.spt_quests.get(mongo)
+        quest = self.quests.get(mongo)
         if quest is None:
             msg = f"Quest {mongo} not found."
             raise Exception(msg)
