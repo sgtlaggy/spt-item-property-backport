@@ -16,43 +16,34 @@ using QuestsDict = Dictionary<MongoId, Dictionary<MongoId, QuestCondition>>;
 
 [Injectable]
 public class DataService
+(
+    JsonUtil _json,
+    ModHelper _modHelper,
+    ISptLogger<DataService> _logger
+)
 {
-    private JsonUtil _json;
-    private ISptLogger<DataService> _logger;
-
-    private string modDir;
-    private string configFile;
-    private string itemsFile;
-    private string questsFile;
-
     private static string baseUrl = "https://raw.githubusercontent.com/sgtlaggy/spt-item-property-backport/refs/heads/master/Resources/db/";
-    private string itemsUrl = baseUrl + "items.json";
-    private string questsUrl = baseUrl + "quests.json";
+
+    private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
 
     private Config? config;
-
-    public DataService(JsonUtil json, ModHelper modHelper, ISptLogger<DataService> logger)
-    {
-        _json = json;
-        _logger = logger;
-
-        modDir = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
-        configFile = Path.Join(modDir, "config.json");
-        itemsFile = Path.Join(modDir, "db", "items.json");
-        questsFile = Path.Join(modDir, "db", "quests.json");
-
-        config = json.DeserializeFromFile<Config>(configFile);
-
-        // Special-case any misbehaving properties
-        if (config is not null)
-        {
-            // ‘PlayFuzeSound’ is not nullable
-            config.ExcludeProperties.Add("PlayFuzeSound");
-        }
-    }
+    private bool triedLoadConfig;
 
     public Config GetConfig()
     {
+        if (!triedLoadConfig)
+        {
+            triedLoadConfig = true;
+            config = _json.DeserializeFromFile<Config>(Path.Join(modDir, "config.json"));
+
+            // Special-case misbehaving properties
+            if (config is not null)
+            {
+                // ‘PlayFuzeSound’ is not nullable
+                config.ExcludeProperties.Add("PlayFuzeSound");
+            }
+        }
+
         if (config is null)
         {
             throw new Exception("Failed to load config.");
@@ -63,7 +54,7 @@ public class DataService
 
     public async Task<ItemsDict> GetItemChanges()
     {
-        var changes = await ReadOrRedownload<ItemsDict>(itemsFile, itemsUrl);
+        var changes = await ReadOrRedownload<ItemsDict>("items.json");
 
         if (changes is null)
         {
@@ -75,7 +66,7 @@ public class DataService
 
     public async Task<QuestsDict> GetQuestChanges()
     {
-        var changes = await ReadOrRedownload<QuestsDict>(questsFile, questsUrl);
+        var changes = await ReadOrRedownload<QuestsDict>("quests.json");
 
         if (changes is null)
         {
@@ -85,14 +76,15 @@ public class DataService
         return changes;
     }
 
-    private async Task<T?> ReadOrRedownload<T>(string file, string url)
+    private async Task<T?> ReadOrRedownload<T>(string filename)
     {
+        var file = Path.Join(modDir, "db", filename);
         if (File.Exists(file))
         {
             return await _json.DeserializeFromFileAsync<T>(file);
         }
 
-        var filename = Path.GetFileName(file);
+        var url = baseUrl + filename;
         _logger.Warning($"[ItemPropertyBackport] {filename} not found, redownloading.");
         var response = await GetWithRetries(url, 2);
         if (response is not null)
