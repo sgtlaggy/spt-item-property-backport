@@ -105,10 +105,12 @@ def compile_item_changes(spt: SPTData):
                 changed_props[k] = v[0]
                 continue
 
+            v[0].sort()
+            v[1].sort()
             live_conflicting = set(v[0])
             spt_conflicting = set(v[1])
-            added_items = list(live_conflicting - spt_conflicting)
-            removed_items = list(spt_conflicting - live_conflicting)
+            added_items = sorted(live_conflicting - spt_conflicting)
+            removed_items = sorted(spt_conflicting - live_conflicting)
 
             # Rename the property so we can extend SPT’s ‘TemplateItemProperties’
             changed_props["ConflictingItemsDiff"] = (added_items, removed_items)
