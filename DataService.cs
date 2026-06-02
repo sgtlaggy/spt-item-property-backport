@@ -63,28 +63,7 @@ public class DataService
 
     public async Task<ItemsDict> GetItemChanges()
     {
-        ItemsDict? changes = null;
-        if (!File.Exists(itemsFile))
-        {
-            _logger.Warning("[ItemPropertyBackport] Item file not found, redownloading.");
-            var response = await GetWithRetries(itemsUrl, 2);
-            if (response is not null)
-            {
-                changes = _json.Deserialize<ItemsDict>(response);
-
-                var directory = Path.GetDirectoryName(itemsFile)!;
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                await File.WriteAllTextAsync(itemsFile, response);
-            }
-        }
-        else
-        {
-            changes = await _json.DeserializeFromFileAsync<ItemsDict>(itemsFile);
-        }
+        var changes = await ReadOrRedownload<ItemsDict>(itemsFile, itemsUrl);
 
         if (changes is null)
         {
@@ -96,28 +75,7 @@ public class DataService
 
     public async Task<QuestsDict> GetQuestChanges()
     {
-        QuestsDict? changes = null;
-        if (!File.Exists(questsFile))
-        {
-            _logger.Warning("[ItemPropertyBackport] Quest file not found, redownloading.");
-            var response = await GetWithRetries(questsUrl, 2);
-            if (response is not null)
-            {
-                changes = _json.Deserialize<QuestsDict>(response);
-
-                var directory = Path.GetDirectoryName(questsFile)!;
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                await File.WriteAllTextAsync(questsFile, response);
-            }
-        }
-        else
-        {
-            changes = await _json.DeserializeFromFileAsync<QuestsDict>(questsFile);
-        }
+        var changes = await ReadOrRedownload<QuestsDict>(questsFile, questsUrl);
 
         if (changes is null)
         {
@@ -125,6 +83,34 @@ public class DataService
         }
 
         return changes;
+    }
+
+    private async Task<T?> ReadOrRedownload<T>(string file, string url)
+    {
+        if (File.Exists(file))
+        {
+            return await _json.DeserializeFromFileAsync<T>(file);
+        }
+
+        var filename = Path.GetFileName(file);
+        _logger.Warning($"[ItemPropertyBackport] {filename} not found, redownloading.");
+        var response = await GetWithRetries(url, 2);
+        if (response is not null)
+        {
+            var changes = _json.Deserialize<T>(response);
+
+            var directory = Path.GetDirectoryName(file)!;
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            await File.WriteAllTextAsync(file, response);
+
+            return changes;
+        }
+
+        return default;
     }
 
     // Adapted from LiveFleaPrices’ ‘GetWithRetries’ method
