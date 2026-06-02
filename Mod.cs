@@ -27,6 +27,7 @@ public class Mod(
 {
     private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
     private Dictionary<string, List<(double?, double?)>> localeOverrides = [];
+    private HashSet<MongoId> unblacklistedItems = [];
 
     public async Task OnLoad()
     {
@@ -45,8 +46,13 @@ public class Mod(
 
         if (config.UpdateGunsmith)
         {
-            await UpdateQuests(config);
+            await UpdateQuests();
             UpdateLocales();
+        }
+
+        if (config.AllPrices || config.UnblacklistedPrices)
+        {
+            await UpdatePrices(config);
         }
     }
 
@@ -93,7 +99,15 @@ public class Mod(
                 continue;
             }
 
+            var couldSellOnFleaBeforeUpdate = item.Properties.CanSellOnRagfair ?? false;
+
             UpdateItem(config, item.Properties, liveProps);
+
+            var canSellOnFleaAfterUpdate = item.Properties.CanSellOnRagfair ?? false;
+            if (canSellOnFleaAfterUpdate && !couldSellOnFleaBeforeUpdate)
+            {
+                unblacklistedItems.Add(item.Id);
+            }
         }
 
 #if DEBUG
@@ -136,7 +150,7 @@ public class Mod(
         }
     }
 
-    private async Task UpdateQuests(Config config)
+    private async Task UpdateQuests()
     {
         var changes = await _dataService.GetQuestChanges();
         var quests = _db.GetQuests();
@@ -201,6 +215,64 @@ public class Mod(
 
 #if DEBUG
         File.WriteAllText(Path.Join(modDir, "quests_after.json"), _json.Serialize(quests, true));
+#endif
+    }
+
+    private async Task UpdatePrices(Config config)
+    {
+        var handbook = _db.GetHandbook().Items
+                       .Select((hbItem) => new KeyValuePair<MongoId, HandbookItem>(hbItem.Id, hbItem))
+                       .ToDictionary();
+        var fleaPrices = _db.GetPrices();
+        var items = _db.GetItems();
+
+        var inclusive = config.IncludeItems.Count > 0;
+        var changes = (await _dataService.GetPriceChanges())
+                          .Where((kvp) =>
+                          {
+                              TemplateItem? item;
+                              if (!items.TryGetValue(kvp.Key, out item))
+                              {
+                                  return false;
+                              }
+
+                              if (ContainsItemOrParent(config.ExcludeItems, item))
+                              {
+                                  return false;
+                              }
+
+                              if (inclusive && !ContainsItemOrParent(config.IncludeItems, item))
+                              {
+                                  return false;
+                              }
+
+                              return config.AllPrices || unblacklistedItems.Contains(kvp.Key);
+                          })
+                          .ToDictionary();
+
+#if DEBUG
+        Dictionary<string, object> debugData = [];
+        debugData.Add("Handbook", handbook);
+        debugData.Add("Flea", fleaPrices);
+
+        File.WriteAllText(Path.Join(modDir, "prices_before.json"), _json.Serialize(debugData, true));
+#endif
+
+        foreach (var (mongo, price) in changes)
+        {
+            if ((price.Handbook is not null) && handbook.TryGetValue(mongo, out var hbItem))
+            {
+                hbItem.Price = price.Handbook;
+            }
+
+            if (price.Flea is not null)
+            {
+                fleaPrices[mongo] = price.Flea.Value;
+            }
+        }
+
+#if DEBUG
+        File.WriteAllText(Path.Join(modDir, "prices_after.json"), _json.Serialize(debugData, true));
 #endif
     }
 

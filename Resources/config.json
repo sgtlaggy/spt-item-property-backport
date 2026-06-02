@@ -2,5 +2,7 @@
     "ExcludeProperties": [],
     "IncludeItems": [],
     "ExcludeItems": [],
+    "AllPrices": false,
+    "UnblacklistedPrices": true,
     "UpdateGunsmith": true
 }

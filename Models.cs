@@ -15,6 +15,12 @@ public record Config
     [JsonPropertyName("ExcludeItems")]
     public HashSet<MongoId> ExcludeItems { get; set; } = [];
 
+    [JsonPropertyName("AllPrices")]
+    public bool AllPrices { get; set; }
+
+    [JsonPropertyName("UnblacklistedPrices")]
+    public bool UnblacklistedPrices { get; set; }
+
     [JsonPropertyName("UpdateGunsmith")]
     public bool UpdateGunsmith { get; set; }
 }
@@ -23,4 +29,13 @@ public record ItemProperties : TemplateItemProperties
 {
     [JsonPropertyName("ConflictingItemsDiff")]
     public List<HashSet<MongoId>>? ConflictingItemsDiff { get; set; }
+}
+
+public record Prices
+{
+    [JsonPropertyName("Handbook")]
+    public double? Handbook { get; set; }
+
+    [JsonPropertyName("Flea")]
+    public double? Flea { get; set; }
 }

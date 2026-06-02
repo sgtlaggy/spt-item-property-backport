@@ -12,6 +12,7 @@ namespace ItemPropertyBackport;
 
 using ItemsDict = Dictionary<MongoId, ItemProperties>;
 using QuestsDict = Dictionary<MongoId, Dictionary<MongoId, QuestCondition>>;
+using PricesDict = Dictionary<MongoId, Prices>;
 
 
 [Injectable]
@@ -71,6 +72,18 @@ public class DataService
         if (changes is null)
         {
             throw new Exception("Failed to load quest changes.");
+        }
+
+        return changes;
+    }
+
+    public async Task<PricesDict> GetPriceChanges()
+    {
+        var changes = await ReadOrRedownload<PricesDict>("prices.json");
+
+        if (changes is null)
+        {
+            throw new Exception("Failed to load price changes.");
         }
 
         return changes;
