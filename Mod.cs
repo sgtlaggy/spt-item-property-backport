@@ -108,16 +108,16 @@ public class Mod(
 
     private void UpdateItem(Config config, TemplateItemProperties dbProps, ItemProperties props)
     {
-        var type_props = typeof(TemplateItemProperties).GetProperties();
-        foreach (var prop in type_props)
+        var typeProps = typeof(TemplateItemProperties).GetProperties();
+        foreach (var prop in typeProps)
         {
-            var new_value = prop.GetValue(props);
-            if ((new_value is null) || config.ExcludeProperties.Contains(prop.Name))
+            var newValue = prop.GetValue(props);
+            if ((newValue is null) || config.ExcludeProperties.Contains(prop.Name))
             {
                 continue;
             }
 
-            prop.SetValue(dbProps, new_value);
+            prop.SetValue(dbProps, newValue);
         }
 
         if ((props.ConflictingItemsDiff is not null) && !config.ExcludeProperties.Contains("ConflictingItems"))
