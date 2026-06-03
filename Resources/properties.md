@@ -70,10 +70,12 @@ keep SPT ammo stack sizes + key use count
 
 ### Armor, rigs, helmets, glasses
 - BlindnessProtection
+- BlocksEarpiece
 - BluntThroughput
+- DeafStrength
 - MousePenalty           (turn speed)
 - SpeedPenaltyPercent
-- WeaponErgonmicPenalty
+- WeaponErgonomicPenalty
 
 ### Headphones
 - AmbientVolume
