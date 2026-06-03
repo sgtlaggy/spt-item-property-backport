@@ -20,6 +20,7 @@ public class Mod(
 #if DEBUG
     JsonUtil _json,
 #endif
+    ItemBaseClassService _baseClassService,
     ModHelper _modHelper,
     DataService _dataService,
     ISptLogger<Mod> _logger
@@ -117,7 +118,7 @@ public class Mod(
 
     public bool ContainsItemOrParent(HashSet<MongoId> set, TemplateItem item)
     {
-        return set.Contains(item.Id) || set.Contains(item.Parent);
+        return set.Contains(item.Id) || _baseClassService.ItemHasBaseClass(item.Id, set);
     }
 
     private void UpdateItem(Config config, TemplateItemProperties dbProps, ItemProperties props)
