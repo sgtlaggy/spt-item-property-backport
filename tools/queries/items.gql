@@ -54,6 +54,7 @@
         DeviationMax: deviationMax
       }
       ... on ItemPropertiesChestRig {
+        BluntThroughput: bluntThroughput
         weaponErgonomicPenalty: ergoPenalty
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
