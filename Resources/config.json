@@ -4,5 +4,6 @@
     "ExcludeItems": [],
     "AllPrices": false,
     "UnblacklistedPrices": true,
+    "RemoveAmmoboxFleaLimit": false,
     "UpdateGunsmith": true
 }

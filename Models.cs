@@ -21,6 +21,9 @@ public record Config
     [JsonPropertyName("UnblacklistedPrices")]
     public bool UnblacklistedPrices { get; set; }
 
+    [JsonPropertyName("RemoveAmmoboxFleaLimit")]
+    public bool RemoveAmmoboxFleaLimit { get; set; }
+
     [JsonPropertyName("UpdateGunsmith")]
     public bool UpdateGunsmith { get; set; }
 }

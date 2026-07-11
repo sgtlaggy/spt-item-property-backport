@@ -6,7 +6,9 @@ using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Utils;
+using SPTarkov.Server.Core.Servers;
 using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils;
 
@@ -16,6 +18,7 @@ namespace ItemPropertyBackport;
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 4)]
 public class Mod(
+    ConfigServer _config,
     DatabaseService _db,
 #if DEBUG
     JsonUtil _json,
@@ -54,6 +57,13 @@ public class Mod(
         if (config.AllPrices || config.UnblacklistedPrices)
         {
             await UpdatePrices(config);
+        }
+
+        if (config.RemoveAmmoboxFleaLimit)
+        {
+            var ragfairConfig = _config.GetConfig<RagfairConfig>();
+            ragfairConfig.Dynamic.OfferItemCount.Remove(BaseClasses.AMMO_BOX);
+            ragfairConfig.Dynamic.ShowAsSingleStack.Remove(BaseClasses.AMMO_BOX);
         }
     }
 
