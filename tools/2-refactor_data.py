@@ -5,7 +5,7 @@ from queue import PriorityQueue
 from typing import Callable, TypeVar
 
 from env import TARKOV_DEV_FILES, TMP_DIR
-from models import Dict, MongoID, Prices
+from models import Dict, MongoID, Prices, SptBuff
 from utils import hang, json_dump, json_load
 
 T = TypeVar("T")
@@ -123,6 +123,116 @@ class ItemFixer(DataFixer):
         for item in self.data.values():
             conflicting_items = item["properties"]["ConflictingItems"]
             conflicting_items[:] = [i["id"] for i in conflicting_items]
+
+    @fixer(5)
+    def fix_single_use_medical_uses(self):
+        for item in self.data.values():
+            if item["properties"].get("MaxHpResource") == 1:
+                item["properties"]["MaxHpResource"] = 0
+
+    @fixer(6)
+    def translate_buffs(self):
+        buff_type_translations = {
+            "Energy recovery": "EnergyRate",
+            "Hydration recovery": "HydrationRate",
+            "Stamina recovery": "StaminaRate",
+            "Skill": "SkillRate",
+            "Hands tremor": "HandsTremor",
+            "Tunnel effect": "QuantumTunnelling",
+            "Max stamina": "MaxStamina",
+            "Stops and prevents bleedings": "RemoveAllBloodLosses",
+            "Health regeneration": "HealthRate",
+            "Weight limit": "WeightLimit",
+            "Body temperature": "BodyTemperature",
+            "Damage taken (except the head)": "DamageModifier",
+            "Antidote": "Antidote",
+            "Pain": "Pain",
+            # no data for:
+            #  Contusion
+            #  Fracture
+            #  FrostbiteBuff
+            #  HeavyBleeding
+            #  LightBleeding
+            #  UnknownToxin
+            #  ZombieInfection
+        }
+        for item in self.data.values():
+            buffs: list[SptBuff] | None = item["properties"].get("Buffs")
+            if buffs is None:
+                continue
+            for buff in buffs:
+                buff["AbsoluteValue"] = not buff.pop("percent")  # ty:ignore[invalid-key]
+                buff["BuffType"] = buff_type_translations[buff.pop("type")]  # ty:ignore[invalid-key]
+                skill_name = buff.pop("skillName", "") or ""  # ty:ignore[invalid-key]
+                buff["SkillName"] = (buff.pop("skill") or {}).get("id", skill_name)  # ty:ignore[invalid-key]
+
+    @fixer(6)
+    def repack_health_effects(self):
+        for item in self.data.values():
+            props = item["properties"]
+            if "Energy" in props:
+                props["EffectsHealth"] = {
+                    "Energy": {"value": props.pop("Energy")},
+                    "Hydration": {"value": props.pop("Hydration")},
+                }
+
+    @fixer(6)
+    def translate_cures(self):
+        for item in self.data.values():
+            cures: list[str] = item["properties"].get("EffectsDamage")
+            if not cures:
+                continue
+            try:
+                index = cures.index("LostLimb")
+            except ValueError:
+                pass
+            else:
+                cures[index] = "DestroyedPart"
+
+    @fixer(7)
+    def convert_cures(self):
+        for item in self.data.values():
+            props = item["properties"]
+            cures: list[str] | None = props.get("EffectsDamage")
+            if cures is None:
+                continue
+
+            new_cures: dict[str, dict[str, int]] = {}
+            for cure in cures:
+                new_cures[cure] = {}
+                if cure == "Pain":
+                    duration = props.pop("PainDuration", 0)
+                    if duration:
+                        new_cures[cure]["duration"] = duration
+                elif cure == "DestroyedPart":
+                    new_cures[cure] = {
+                        "healthPenaltyMax": int(props.pop("healthPenaltyMax") * 100),
+                        "healthPenaltyMin": int(props.pop("healthPenaltyMin") * 100),
+                    }
+                elif cure.endswith("Bleeding"):
+                    cost = props.pop(cure, 0)
+                    if cost:
+                        new_cures[cure]["cost"] = cost
+
+            props["EffectsDamage"] = new_cures
+
+    @fixer(8)
+    def extract_special_properties(self):
+        """Extract properties that require special-case handling."""
+
+        # { category: [props] }
+        to_extract = ["ConflictingItems", "Buffs", "EffectsDamage", "EffectsHealth"]
+
+        for item in self.data.values():
+            props = item["properties"]
+
+            special_props: Dict = {}
+            for prop in to_extract:
+                if prop in props:
+                    special_props[prop] = props.pop(prop)
+
+            if special_props:
+                item["special_properties"] = special_props
 
 
 class QuestFixer(DataFixer):

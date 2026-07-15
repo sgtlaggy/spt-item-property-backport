@@ -95,3 +95,15 @@ keep SPT ammo stack sizes + key use count
 
 ### Keys
 - MaximumNumberOfUsages
+
+### Meds
+- MedUseTime
+- MaxHpResource
+- EffectsDamage
+
+### Food
+- MaxResource
+
+### Meds, Food
+- EffectsHealth
+- Buffs

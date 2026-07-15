@@ -1,17 +1,41 @@
-from typing import Any, TypedDict
+from typing import Any, Literal, TypedDict
 
 MongoID = str
 
 Dict = dict[str, Any]
+Pair = tuple[Any, Any]
 
 
 class HasID(TypedDict):
     id: MongoID
 
 
+class SptBuff(TypedDict):
+    AbsoluteValue: bool
+    BuffType: str
+    Chance: int
+    Delay: int
+    Duration: int
+    SkillName: str
+    Value: int
+
+
+class SpecialDiff[T](TypedDict):
+    Changed: T
+    Removed: list[str]
+
+
+class SpecialProperties(TypedDict):
+    ConflictingItems: tuple[list[str], list[str]]
+    Buffs: dict[int, SptBuff | None]
+    EffectsDamage: dict[str, dict[str, dict[str, int]] | None]
+    EffectsHealth: dict[str, dict[Literal["value"], int]]
+
+
 class FixedItem(HasID):
     types: list[str]
     properties: Dict
+    special_properties: SpecialProperties
 
 
 class SptItem(TypedDict):

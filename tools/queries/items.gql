@@ -59,6 +59,23 @@
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
       }
+      ... on ItemPropertiesFoodDrink {
+        Energy: energy
+        Hydration: hydration
+        MaxResource: units
+        Buffs: stimEffects {
+          Chance: chance
+          Delay: delay
+          Duration: duration
+          percent
+          skill {
+            id
+          }
+          skillName
+          type
+          Value: value
+        }
+      }
       ... on ItemPropertiesGlasses {
         BlindnessProtection: blindnessProtection
         BluntThroughput: bluntThroughput
@@ -91,11 +108,54 @@
         LoadUnloadModifier: loadModifier
         MalfunctionChance: malfunctionChance
       }
+      ... on ItemPropertiesMedicalItem {
+        EffectsDamage: cures
+        MaxHpResource: uses
+        medUseTime: useTime
+      }
+      ... on ItemPropertiesMedKit {
+        EffectsDamage: cures
+        MaxHpResource: hitpoints
+        HeavyBleeding: hpCostHeavyBleeding
+        LightBleeding: hpCostLightBleeding
+        hpResourceRate: maxHealPerUse
+        medUseTime: useTime
+      }
       ... on ItemPropertiesNightVision {
         DiffuseIntensity: diffuseIntensity
         Intensity: intensity
         NoiseIntensity: noiseIntensity
         NoiseScale: noiseScale
+      }
+      ... on ItemPropertiesPainkiller {
+        EffectsDamage: cures
+        Energy: energyImpact
+        Hydration: hydrationImpact
+        PainDuration: painkillerDuration
+        MaxHpResource: uses
+        medUseTime: useTime
+      }
+      ... on ItemPropertiesStim {
+        EffectsDamage: cures
+        Buffs: stimEffects {
+          Chance: chance
+          Delay: delay
+          Duration: duration
+          percent
+          skill {
+            id
+          }
+          type
+          Value: value
+        }
+        medUseTime: useTime
+      }
+      ... on ItemPropertiesSurgicalKit {
+        EffectsDamage: cures
+        healthPenaltyMax: maxLimbHealth
+        healthPenaltyMin: minLimbHealth
+        MaxHpResource: uses
+        medUseTime: useTime
       }
       ... on ItemPropertiesWeapon {
         CameraSnap: cameraSnap
