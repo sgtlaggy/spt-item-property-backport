@@ -112,7 +112,14 @@ public class Mod(
 
             var couldSellOnFleaBeforeUpdate = item.Properties.CanSellOnRagfair ?? false;
 
-            UpdateItem(config, item.Properties, liveProps);
+            if (liveProps.Properties is not null)
+            {
+                UpdateBasicProperties(config, item.Properties, liveProps.Properties);
+            }
+            if (liveProps.SpecialProperties is not null)
+            {
+                UpdateSpecialProperties(config, item.Properties, liveProps.SpecialProperties);
+            }
 
             var canSellOnFleaAfterUpdate = item.Properties.CanSellOnRagfair ?? false;
             if (canSellOnFleaAfterUpdate && !couldSellOnFleaBeforeUpdate)
@@ -131,7 +138,7 @@ public class Mod(
         return set.Contains(item.Id) || _baseClassService.ItemHasBaseClass(item.Id, set);
     }
 
-    private void UpdateItem(Config config, TemplateItemProperties dbProps, ItemProperties props)
+    private void UpdateBasicProperties(Config config, TemplateItemProperties dbProps, TemplateItemProperties props)
     {
         var typeProps = typeof(TemplateItemProperties).GetProperties();
         foreach (var prop in typeProps)
@@ -144,11 +151,14 @@ public class Mod(
 
             prop.SetValue(dbProps, newValue);
         }
+    }
 
-        if ((props.ConflictingItemsDiff is not null) && !config.ExcludeProperties.Contains("ConflictingItems"))
+    private void UpdateSpecialProperties(Config config, TemplateItemProperties dbProps, SpecialCaseProperties props)
+    {
+        if ((props.ConflictingItems is not null) && !config.ExcludeProperties.Contains("ConflictingItems"))
         {
-            var added = props.ConflictingItemsDiff[0];
-            var removed = props.ConflictingItemsDiff[1];
+            var added = props.ConflictingItems[0];
+            var removed = props.ConflictingItems[1];
             if (dbProps.ConflictingItems is null)
             {
                 dbProps.ConflictingItems = added;
@@ -157,6 +167,77 @@ public class Mod(
             {
                 dbProps.ConflictingItems.ExceptWith(removed);
                 dbProps.ConflictingItems.UnionWith(added);
+            }
+        }
+
+        if ((props.Buffs is not null) && !config.ExcludeProperties.Contains("Buffs"))
+        {
+            var allBuffs = _db.GetGlobals().Configuration.Health.Effects.Stimulator.Buffs;
+            if ((!String.IsNullOrEmpty(dbProps.StimulatorBuffs))
+                && allBuffs.TryGetValue(dbProps.StimulatorBuffs, out var _buffs))
+            {
+                var buffs = _buffs.ToList();
+                List<int> indicesToRemove = [];
+                foreach (var (index, buff) in props.Buffs)
+                {
+                    if (buff is null)
+                    {
+                        indicesToRemove.Add(index);
+                    }
+                    else if (index > buffs.Count)
+                    {
+                        buffs.Add(buff);
+                    }
+                    else
+                    {
+                        buffs[index] = buff;
+                    }
+                }
+
+                indicesToRemove.Sort();
+                indicesToRemove.Reverse();
+                foreach (var index in indicesToRemove)
+                {
+                    buffs.RemoveAt(index);
+                }
+
+                allBuffs[dbProps.StimulatorBuffs] = buffs;
+            }
+        }
+
+        if ((props.EffectsHealth is not null) && !config.ExcludeProperties.Contains("EffectsHealth"))
+        {
+            if (dbProps.EffectsHealth is null)
+            {
+                dbProps.EffectsHealth = [];
+            }
+            UpdateOrRemoveFromDictionary(dbProps.EffectsHealth, props.EffectsHealth);
+        }
+
+        if ((props.EffectsDamage is not null) && !config.ExcludeProperties.Contains("EffectsDamage"))
+        {
+            if (dbProps.EffectsDamage is null)
+            {
+                dbProps.EffectsDamage = [];
+            }
+            UpdateOrRemoveFromDictionary(dbProps.EffectsDamage, props.EffectsDamage);
+        }
+    }
+
+    private void UpdateOrRemoveFromDictionary<TKey, TValue>(
+        Dictionary<TKey, TValue> dict,
+        Dictionary<TKey, TValue?> updateFrom
+    ) where TKey : notnull
+    {
+        foreach (var (key, value) in updateFrom)
+        {
+            if (value is not null)
+            {
+                dict[key] = value;
+            }
+            else if (dict.ContainsKey(key))
+            {
+                dict.Remove(key);
             }
         }
     }

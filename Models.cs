@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using SPTarkov.Server.Core.Models.Common;
+using SPTarkov.Server.Core.Models.Eft.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using SPTarkov.Server.Core.Models.Enums;
 
 namespace ItemPropertyBackport;
 
@@ -28,10 +30,28 @@ public record Config
     public bool UpdateGunsmith { get; set; }
 }
 
-public record ItemProperties : TemplateItemProperties
+public record SpecialCaseProperties
 {
-    [JsonPropertyName("ConflictingItemsDiff")]
-    public List<HashSet<MongoId>>? ConflictingItemsDiff { get; set; }
+    [JsonPropertyName("ConflictingItems")]
+    public List<HashSet<MongoId>>? ConflictingItems { get; set; }
+
+    [JsonPropertyName("Buffs")]
+    public Dictionary<int, Buff?>? Buffs { get; set; }
+
+    [JsonPropertyName("EffectsHealth")]
+    public Dictionary<HealthFactor, EffectsHealthProperties?>? EffectsHealth { get; set; }
+
+    [JsonPropertyName("EffectsDamage")]
+    public Dictionary<DamageEffectType, EffectsDamageProperties?>? EffectsDamage { get; set; }
+}
+
+public record ItemProperties
+{
+    [JsonPropertyName("properties")]
+    public TemplateItemProperties? Properties { get; set; }
+
+    [JsonPropertyName("special_properties")]
+    public SpecialCaseProperties? SpecialProperties { get; set; }
 }
 
 public record Prices
