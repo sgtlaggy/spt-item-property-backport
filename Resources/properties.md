@@ -78,7 +78,6 @@ keep SPT ammo stack sizes + key use count
 - BluntThroughput
 - DeafStrength
 - Durability
-- MaxDurability
 - MousePenalty           (turn speed)
 - RepairCost
 - RicochetParams

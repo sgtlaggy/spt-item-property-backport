@@ -37,11 +37,16 @@ public class DataService
             triedLoadConfig = true;
             config = _json.DeserializeFromFile<Config>(Path.Join(modDir, "config.json"));
 
-            // Special-case misbehaving properties
+            // Special-case some properties
             if (config is not null)
             {
                 // ‘PlayFuzeSound’ is not nullable
                 config.ExcludeProperties.Add("PlayFuzeSound");
+
+                if (config.ExcludeProperties.Contains("Durability"))
+                {
+                    config.ExcludeProperties.Add("MaxDurability");
+                }
             }
         }
 
