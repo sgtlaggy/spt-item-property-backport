@@ -131,6 +131,40 @@ class ItemFixer(DataFixer):
                 item["properties"]["MaxHpResource"] = 0
 
     @fixer(6)
+    def translate_armor_zones(self):
+        translations = {
+            "Head, Top of the head": "ParietalHead",
+            "Head, Face": "HeadCommon",
+            "Head, Nape": "BackHead",
+            "Head, Ears": "Ears",
+            "Head, Eyes": "Eyes",
+            "Head, Jaws": "Jaw",
+            "Thorax": "RibcageUp",
+            "Thorax, Neck": "NeckBack",
+            "Thorax, Throat": "NeckFront",
+            "Thorax, Upper back": "SpineTop",
+            "Back plate": None,
+            "Front plate": None,
+            "Stomach": "RibcageLow",
+            "Stomach, Buttocks": "PelvisBack",
+            "Stomach, Groin": "Pelvis",
+            "Stomach, Left Side": "LeftSideChestDown",
+            "Stomach, Lower back": "SpineDown",
+            "Stomach, Right Side": "RightSideChestDown",
+            "Left arm, Shoulder": "LeftUpperArm",
+            "Left plate": None,
+            "Right arm, Shoulder": "RightUpperArm",
+            "Right plate": None,
+        }
+        for item in self.data.values():
+            colliders = (item["properties"] or {}).get("armorColliders")
+            if not colliders:
+                continue
+            item["properties"]["armorColliders"] = sorted(
+                filter(None, (translations[collider] for collider in colliders))
+            )
+
+    @fixer(6)
     def translate_buffs(self):
         buff_type_translations = {
             "Energy recovery": "EnergyRate",
@@ -188,6 +222,28 @@ class ItemFixer(DataFixer):
                 pass
             else:
                 cures[index] = "DestroyedPart"
+
+    @fixer(7)
+    def fix_armor_properties(self):
+        for item in self.data.values():
+            props = item["properties"]
+
+            if "ricochetX" in props:
+                props["RicochetParams"] = {
+                    c.lower(): props.pop(f"ricochet{c}") for c in "XYZ"
+                }
+
+            if "ArmorMaterial" in props:
+                if props["ArmorMaterial"] is not None:
+                    props["ArmorMaterial"] = props["ArmorMaterial"]["id"]
+
+            if (
+                ("glasses" in item["types"])
+                and ("armorColliders" not in props)
+                and props.get("Durability")
+            ):
+                # tarkov.dev doesn’t provide this for glasses
+                props["armorColliders"] = ["Eyes"]
 
     @fixer(7)
     def convert_cures(self):

@@ -119,11 +119,21 @@ def compile_item_changes(spt: SPTData):  # noqa: C901
 
         review_props = {}
 
-        properties = {}
+        properties: dict[str, Pair] = {}
         props = live_items[mongo]["properties"]
         for prop, live_value in props.items():
+            if live_value is None:
+                continue
             spt_value = spt_props.get(prop)
-            if (live_value != spt_value) and (live_value is not None):
+            if check_armor_property(
+                properties,
+                spt_props,
+                prop,
+                live_value,
+                spt_value,
+            ):
+                continue
+            if live_value != spt_value:
                 properties[prop] = (live_value, spt_value)
         if properties:
             review_props["properties"] = properties
@@ -163,6 +173,34 @@ def compile_item_changes(spt: SPTData):  # noqa: C901
 
     json_dump(review, TMP_DIR / "review_items.json")
     json_dump(changes, OUT_DIR / "items.json")
+
+
+def check_armor_property(
+    out: dict[str, Pair],
+    spt_props: Dict,
+    prop: str,
+    live: Any,
+    spt: Any,
+) -> bool:
+    """Returns whether an armor property was handled."""
+    has_slots = spt_props.get("Slots")
+    if prop == "armorClass":
+        if (live != int(spt)) and (not has_slots):
+            out[prop] = (live, spt)
+        return True
+
+    if prop == "Durability":
+        if (live != spt) and (not has_slots):
+            out[prop] = (live, spt)
+            out["MaxDurability"] = (live, spt)
+        return True
+
+    if prop == "armorColliders":
+        if (live != sorted(spt)) and (not has_slots):
+            out[prop] = (live, spt)
+        return True
+
+    return False
 
 
 def check_special_properties(  # noqa: C901

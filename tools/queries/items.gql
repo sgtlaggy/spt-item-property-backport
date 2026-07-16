@@ -36,17 +36,33 @@
         StackMaxSize: stackMaxSize
       }
       ... on ItemPropertiesArmor {
+        ArmorType: armorType
         BluntThroughput: bluntThroughput
+        armorClass: class
+        Durability: durability
         weaponErgonomicPenalty: ergoPenalty
+        ArmorMaterial: material {
+          id
+        }
+        RepairCost: repairCost
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
+        armorColliders: zones
       }
       ... on ItemPropertiesArmorAttachment {
         BlindnessProtection: blindnessProtection
+        ArmorType: armorType
         BluntThroughput: bluntThroughput
+        armorClass: class
+        Durability: durability
         weaponErgonomicPenalty: ergoPenalty
+        ArmorMaterial: material {
+          id
+        }
+        RepairCost: repairCost
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
+        armorColliders: zones
       }
       ... on ItemPropertiesBarrel {
         CenterOfImpact: centerOfImpact
@@ -54,8 +70,15 @@
         DeviationMax: deviationMax
       }
       ... on ItemPropertiesChestRig {
+        ArmorType: armorType
         BluntThroughput: bluntThroughput
+        armorClass: class
+        Durability: durability
         weaponErgonomicPenalty: ergoPenalty
+        ArmorMaterial: material {
+          id
+        }
+        RepairCost: repairCost
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
       }
@@ -79,7 +102,13 @@
       ... on ItemPropertiesGlasses {
         BlindnessProtection: blindnessProtection
         BluntThroughput: bluntThroughput
+        armorClass: class
+        Durability: durability
         weaponErgonomicPenalty: ergoPenalty
+        ArmorMaterial: material {
+          id
+        }
+        RepairCost: repairCost
       }
       ... on ItemPropertiesHeadphone {
         AmbientVolume: ambientVolume
@@ -92,11 +121,22 @@
         DryVolume: dryVolume
       }
       ... on ItemPropertiesHelmet {
+        ArmorType: armorType
         BlindnessProtection: blindnessProtection
         BlocksEarpiece: blocksHeadset
         BluntThroughput: bluntThroughput
+        armorClass: class
         DeafStrength: deafening
+        Durability: durability
         weaponErgonomicPenalty: ergoPenalty
+        armorColliders: headZones
+        ArmorMaterial: material {
+          id
+        }
+        RepairCost: repairCost
+        ricochetX
+        ricochetY
+        ricochetZ
         speedPenaltyPercent: speedPenalty
         mousePenalty: turnPenalty
       }

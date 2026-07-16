@@ -69,11 +69,19 @@ keep SPT ammo stack sizes + key use count
 - StackMaxSize
 
 ### Armor, rigs, helmets, glasses
+- ArmorClass
+- ArmorColliders
+- ArmorMaterial
+- ArmorType
 - BlindnessProtection
 - BlocksEarpiece
 - BluntThroughput
 - DeafStrength
+- Durability
+- MaxDurability
 - MousePenalty           (turn speed)
+- RepairCost
+- RicochetParams
 - SpeedPenaltyPercent
 - WeaponErgonomicPenalty
 
