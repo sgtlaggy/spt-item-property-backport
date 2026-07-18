@@ -9,13 +9,13 @@ namespace ItemPropertyBackport;
 public record Config
 {
     [JsonPropertyName("ExcludeProperties")]
-    public HashSet<string> ExcludeProperties { get; set; } = new();
+    public required HashSet<string> ExcludeProperties { get; set; }
 
     [JsonPropertyName("IncludeItems")]
-    public HashSet<MongoId> IncludeItems { get; set; } = [];
+    public required HashSet<MongoId> IncludeItems { get; set; }
 
     [JsonPropertyName("ExcludeItems")]
-    public HashSet<MongoId> ExcludeItems { get; set; } = [];
+    public required HashSet<MongoId> ExcludeItems { get; set; }
 
     [JsonPropertyName("AllPrices")]
     public bool AllPrices { get; set; }
