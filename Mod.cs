@@ -1,25 +1,29 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
-using SPTarkov.Server.Core.Helpers;
+using SPTarkov.Server.Core.Helpers.Server;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using SPTarkov.Server.Core.Models.Enums;
 using SPTarkov.Server.Core.Models.Spt.Config;
-using SPTarkov.Server.Core.Models.Utils;
-using SPTarkov.Server.Core.Servers;
-using SPTarkov.Server.Core.Services;
+using SPTarkov.Server.Core.Models.Spt.Tables;
+using SPTarkov.Server.Core.Services.Items;
 using SPTarkov.Server.Core.Utils;
 
 using Path = System.IO.Path;
 
 namespace ItemPropertyBackport;
 
-[Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 4)]
+[Injectable(TypePriority = OnLoadOrder.PostLoad + 4)]
 public class Mod(
-    ConfigServer _config,
-    DatabaseService _db,
+    RagfairConfig _ragfairConfig,
+
+    TemplateTable _templates,
+    GlobalTable _globals,
+    LocaleTable _locales,
 #if DEBUG
     JsonUtil _json,
 #endif
@@ -33,7 +37,7 @@ public class Mod(
     private Dictionary<string, List<(double?, double?)>> localeOverrides = [];
     private HashSet<MongoId> unblacklistedItems = [];
 
-    public async Task OnLoad()
+    public async Task OnLoadAsync(CancellationToken cancellationToken)
     {
         Config? config;
         try
@@ -61,9 +65,8 @@ public class Mod(
 
         if (config.RemoveAmmoboxFleaLimit)
         {
-            var ragfairConfig = _config.GetConfig<RagfairConfig>();
-            ragfairConfig.Dynamic.OfferItemCount.Remove(BaseClasses.AMMO_BOX);
-            ragfairConfig.Dynamic.ShowAsSingleStack.Remove(BaseClasses.AMMO_BOX);
+            _ragfairConfig.Dynamic.OfferItemCount.Remove(BaseClasses.AMMO_BOX);
+            _ragfairConfig.Dynamic.ShowAsSingleStack.Remove(BaseClasses.AMMO_BOX);
         }
     }
 
@@ -80,7 +83,7 @@ public class Mod(
             return;
         }
 
-        var items = _db.GetItems();
+        var items = _templates.Items;
 
 #if DEBUG
         File.WriteAllText(Path.Join(modDir, "items_before.json"), _json.Serialize(items, true));
@@ -172,7 +175,7 @@ public class Mod(
 
         if ((props.Buffs is not null) && !config.ExcludeProperties.Contains("Buffs"))
         {
-            var allBuffs = _db.GetGlobals().Configuration.Health.Effects.Stimulator.Buffs;
+            var allBuffs = _globals.Configuration.Health.Effects.Stimulator.Buffs;
             if ((!String.IsNullOrEmpty(dbProps.StimulatorBuffs))
                 && allBuffs.TryGetValue(dbProps.StimulatorBuffs, out var _buffs))
             {
@@ -245,7 +248,7 @@ public class Mod(
     private async Task UpdateQuests()
     {
         var changes = await _dataService.GetQuestChanges();
-        var quests = _db.GetQuests();
+        var quests = _templates.Quests;
 
 #if DEBUG
         File.WriteAllText(Path.Join(modDir, "quests_before.json"), _json.Serialize(quests, true));
@@ -312,11 +315,11 @@ public class Mod(
 
     private async Task UpdatePrices(Config config)
     {
-        var handbook = _db.GetHandbook().Items
+        var handbook = _templates.Handbook.Items
                        .Select((hbItem) => new KeyValuePair<MongoId, HandbookItem>(hbItem.Id, hbItem))
                        .ToDictionary();
-        var fleaPrices = _db.GetPrices();
-        var items = _db.GetItems();
+        var fleaPrices = _templates.Prices;
+        var items = _templates.Items;
 
         var inclusive = config.IncludeItems.Count > 0;
         var changes = (await _dataService.GetPriceChanges())
@@ -370,13 +373,13 @@ public class Mod(
 
     private void UpdateLocales()
     {
-        var locales = _db.GetLocales().Global;
+        var locales = _locales.Global;
 
 #if DEBUG
         File.WriteAllText(Path.Join(modDir, "locale_before.json"), _json.Serialize(locales["en"].Value, true));
 #endif
 
-        foreach (var locale in _db.GetLocales().Global.Values)
+        foreach (var locale in _locales.Global.Values)
         {
             locale.AddTransformer(UpdateLocale);
         }
@@ -386,7 +389,7 @@ public class Mod(
 #endif
     }
 
-    private Dictionary<string, string>? UpdateLocale(Dictionary<string, string>? loc)
+    private GlobalLocaleDictionary? UpdateLocale(GlobalLocaleDictionary? loc)
     {
         if (loc is null)
         {
