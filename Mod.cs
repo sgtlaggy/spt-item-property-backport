@@ -19,8 +19,8 @@ namespace ItemPropertyBackport;
 
 [Injectable(TypePriority = OnLoadOrder.PostLoad + 4)]
 public class Mod(
+    Config config,
     RagfairConfig _ragfairConfig,
-
     TemplateTable _templates,
     GlobalTable _globals,
     LocaleTable _locales,
@@ -39,18 +39,7 @@ public class Mod(
 
     public async Task OnLoadAsync(CancellationToken cancellationToken)
     {
-        Config? config;
-        try
-        {
-            config = _dataService.GetConfig();
-        }
-        catch (Exception e)
-        {
-            _logger.Error($"[ItemPropertyBackport] {e.Message}");
-            return;
-        }
-
-        await UpdateItems(config);
+        await UpdateItems();
 
         if (config.UpdateGunsmith)
         {
@@ -60,7 +49,7 @@ public class Mod(
 
         if (config.AllPrices || config.UnblacklistedPrices)
         {
-            await UpdatePrices(config);
+            await UpdatePrices();
         }
 
         if (config.RemoveAmmoboxFleaLimit)
@@ -70,7 +59,7 @@ public class Mod(
         }
     }
 
-    private async Task UpdateItems(Config config)
+    private async Task UpdateItems()
     {
         Dictionary<MongoId, ItemProperties>? changes;
         try
@@ -313,7 +302,7 @@ public class Mod(
 #endif
     }
 
-    private async Task UpdatePrices(Config config)
+    private async Task UpdatePrices()
     {
         var handbook = _templates.Handbook.Items
                        .Select((hbItem) => new KeyValuePair<MongoId, HandbookItem>(hbItem.Id, hbItem))

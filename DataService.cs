@@ -1,4 +1,3 @@
-using System.Reflection;
 using SPTarkov.Common.Models.Logging;
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.Helpers.Server;
@@ -15,7 +14,7 @@ using QuestsDict = Dictionary<MongoId, Dictionary<MongoId, QuestCondition>>;
 using PricesDict = Dictionary<MongoId, Prices>;
 
 
-[Injectable]
+[Injectable(InjectionType = InjectionType.Singleton)]
 public class DataService
 (
     JsonUtil _json,
@@ -25,38 +24,7 @@ public class DataService
 {
     private static string baseUrl = "https://raw.githubusercontent.com/sgtlaggy/spt-item-property-backport/refs/heads/master/Resources/db/";
 
-    private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
-
-    private Config? config;
-    private bool triedLoadConfig;
-
-    public Config GetConfig()
-    {
-        if (!triedLoadConfig)
-        {
-            triedLoadConfig = true;
-            config = _json.DeserializeFromFile<Config>(Path.Join(modDir, "config.json"));
-
-            // Special-case some properties
-            if (config is not null)
-            {
-                // ‘PlayFuzeSound’ is not nullable
-                config.ExcludeProperties.Add("PlayFuzeSound");
-
-                if (config.ExcludeProperties.Contains("Durability"))
-                {
-                    config.ExcludeProperties.Add("MaxDurability");
-                }
-            }
-        }
-
-        if (config is null)
-        {
-            throw new Exception("Failed to load config.");
-        }
-
-        return config;
-    }
+    private string modDir = _modHelper.GetAbsolutePathToModFolder();
 
     public async Task<ItemsDict> GetItemChanges()
     {
