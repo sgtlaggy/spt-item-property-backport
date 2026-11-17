@@ -181,7 +181,7 @@
 	"55d4ae6c4bdc2d8b2f8b456e": {
 		"properties": {
 			"Ergonomics": 6,
-			"Recoil": -21
+			"Recoil": -20.5
 		}
 	},
 	"55d4af3a4bdc2d972f8b456f": {
@@ -200,7 +200,9 @@
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
+				[
+					"6a18508bae175e037a0be420"
+				],
 				[
 					"544a3f024bdc2d1d388b4568"
 				]
@@ -250,6 +252,15 @@
 		"properties": {
 			"RecoilForceBack": 244,
 			"RecoilForceUp": 96
+		}
+	},
+	"5645bc214bdc2d363b8b4571": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"5645bcc04bdc2d363b8b4572": {
@@ -334,6 +345,19 @@
 		"properties": {
 			"Ergonomics": 0.5,
 			"Recoil": -0.8
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a671d320578b5a41000c298",
+					"6a6720479d7f57e84800faed",
+					"6a6720592ff856278106eb3e",
+					"6a6721edecf09d43410cba5a",
+					"6a6724bddfb2de5e320d451d",
+					"6a67250406a5419b2508f23e"
+				],
+				[]
+			]
 		}
 	},
 	"5649b0fc4bdc2d17108b4588": {
@@ -1189,6 +1213,11 @@
 			"Ergonomics": 11
 		}
 	},
+	"5937ee6486f77408994ba448": {
+		"properties": {
+			"MaximumNumberOfUsage": 5
+		}
+	},
 	"593d489686f7745c6255d58a": {
 		"properties": {
 			"Ergonomics": -5,
@@ -1361,14 +1390,14 @@
 	},
 	"59db3acc86f7742a2c4ab912": {
 		"properties": {
-			"Ergonomics": 5,
-			"Recoil": -1.5
+			"Ergonomics": 6,
+			"Recoil": -1.2
 		}
 	},
 	"59db3b0886f77429d72fb895": {
 		"properties": {
-			"Ergonomics": 5,
-			"Recoil": -1.5
+			"Ergonomics": 6,
+			"Recoil": -1.2
 		}
 	},
 	"59e0bdb186f774156f04ce82": {
@@ -1584,6 +1613,15 @@
 			]
 		}
 	},
+	"59e7711e86f7746cae05fbe1": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"59e7715586f7742ee5789605": {
 		"special_properties": {
 			"ConflictingItems": [
@@ -1619,6 +1657,15 @@
 		"properties": {
 			"Ergonomics": 12,
 			"Recoil": -24.5
+		}
+	},
+	"59ef13ca86f77445fd0e2483": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"59f8a37386f7747af3328f06": {
@@ -1726,7 +1773,12 @@
 	},
 	"5a154d5cfcdbcb001a3b00da": {
 		"properties": {
-			"RepairCost": 668
+			"RepairCost": 668,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5a16b9fffcdbcb0176308b34": {
@@ -1821,8 +1873,8 @@
 	},
 	"5a339805c4a2826c6e06d73d": {
 		"properties": {
-			"Ergonomics": 3,
-			"Recoil": -1
+			"Ergonomics": 6,
+			"Recoil": -1.2
 		}
 	},
 	"5a33a8ebc4a282000c5a950d": {
@@ -1863,7 +1915,11 @@
 					"698b337c49b46ae2d0092e7f",
 					"698b338649b46ae2d0092e82",
 					"698b358b49b46ae2d0092e86",
-					"698b3592e700c6d632003753"
+					"698b3592e700c6d632003753",
+					"6a15aef607619a15b1023c51",
+					"6a15bf94e5267ba21c07f9b1",
+					"6a15bfa58d059ca69c0a78c0",
+					"6a1d4c9246a6dc414a014973"
 				],
 				[]
 			]
@@ -2128,6 +2184,15 @@
 			"Recoil": -8.5
 		}
 	},
+	"5a7c4850e899ef00150be885": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"5a7c74b3e899ef0014332c29": {
 		"special_properties": {
 			"ConflictingItems": [
@@ -2296,7 +2361,32 @@
 			]
 		}
 	},
+	"5aa7cfc0e5b5b00015693143": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"5aa7d03ae5b5b00016327db5": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"5aa7d193e5b5b000171d063f": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -2309,11 +2399,53 @@
 	},
 	"5aa7e276e5b5b000171d0647": {
 		"properties": {
-			"RepairCost": 734
+			"RepairCost": 734,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
+					"5bd06f5d86f77427101ad47c",
+					"5bd0716d86f774171822ef4b",
+					"60a7ad2a2198820d95707a2e",
+					"60a7ad3a0c5cb24b0134664a",
+					"6176a40f0b8c0312ac75a3d3",
+					"6176a48d732a664031271438",
+					"62a09e08de7ac81993580532",
+					"635267ab3c89e2112001f826",
+					"6530e8587cbfc1e309011e37",
+					"657089638db3adca1009f4ca",
+					"6570aead4d84f81fd002a033",
+					"6571bde39837cc51b800c212",
+					"676029a6bdead929d40bc368",
+					"676029ca2749de558a0b7e67",
+					"676029e22749de558a0b7e69",
+					"676029f997f19b78f00a0197",
+					"67602a0f97f19b78f00a0199",
+					"67602a23c8e72a73250de737",
+					"67602a39c8e72a73250de739",
+					"67a4b71ad3228756b6088ee2",
+					"67a5c5b6dfdf568c9009af66",
+					"67a5c5df782ce4655104db14",
+					"67a5c5f37f52620c5b05b4d6",
+					"67a5c6068fcd9fb73f0752cf",
+					"67a5c61c7f52620c5b05b4d8",
+					"67a5c657782ce4655104db16",
+					"688b3bfa1ed594eccd0c45ee",
+					"68a9a04373d52d47830759c7",
+					"68a9a0b01696fb8c1e0ee9cc",
+					"68a9a1223e1ee5a70504c126",
+					"68a9a15d73d52d47830759c9",
+					"68a9b821cdf661cc5a0626c6",
+					"68a9b852cdf661cc5a0626c9",
+					"68a9b873a4b28d56c80a1818",
+					"68d54d0525ac8590a8075ac3",
+					"6936ff8734029a096c06f95a",
+					"693bb59250fafa102607aeb7",
 					"69c139c022093da1c50a8808",
 					"69c14efe66c213ea750e1960",
 					"69c14fa8b33aad3beb036878",
@@ -2321,17 +2453,45 @@
 					"69c163b17c7040819b086502",
 					"69c264c00f660b3f0d058fcf",
 					"69c26593ea474c30ad069f8f",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
 				],
 				[]
 			]
 		}
 	},
+	"5aa7e373e5b5b000137b76f0": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"59e7715586f7742ee5789605",
+					"5b432c305acfc40019478128",
+					"5e54f79686f7744022011103",
+					"60363c0c92ec1c31037959f5",
+					"689b404db49f27df1c0873f6",
+					"689b880fff8b4adc420f5b56",
+					"6a83168651cfbe231b091a0f"
+				],
+				[]
+			]
+		}
+	},
+	"5aa7e454e5b5b0214e506fa2": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
 	"5aa7e4a4e5b5b000137b76f2": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.8,
-				"y": 0.3,
+				"x": 0.3,
+				"y": 0.85,
 				"z": 75
 			}
 		}
@@ -2393,6 +2553,23 @@
 		"properties": {
 			"RecoilForceBack": 244,
 			"RecoilForceUp": 90
+		}
+	},
+	"5ab8f85d86f7745cd93a1cf5": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"69ce8ea6c5fbc777150faf69",
+					"69ce8fa8579d5d18300a1fd3",
+					"69ceab1a8562e71bbe063511",
+					"69ceab3a8562e71bbe063514",
+					"6a622ebeace4474db90fc85c",
+					"6a622f797a1ca14e57077819",
+					"6a8316cb0ccd0eb28d02f264",
+					"6a8316e7608278aaac018b5b"
+				],
+				[]
+			]
 		}
 	},
 	"5abcbc27d8ce8700182eceeb": {
@@ -2487,7 +2664,12 @@
 	},
 	"5ac8d6885acfc400180ae7b0": {
 		"properties": {
-			"RepairCost": 668
+			"RepairCost": 668,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5addbac75acfc400194dbc56": {
@@ -2583,7 +2765,11 @@
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
+				[
+					"69f9ec80aae020b0db02f670",
+					"6a18508bae175e037a0be420",
+					"6a3ceaf01ac10a22850e295a"
+				],
 				[
 					"544a3f024bdc2d1d388b4568"
 				]
@@ -2592,7 +2778,7 @@
 	},
 	"5ae30c9a5acfc408fb139a03": {
 		"properties": {
-			"Ergonomics": 5,
+			"Ergonomics": 7,
 			"Recoil": -21
 		}
 	},
@@ -2774,12 +2960,57 @@
 	},
 	"5b40e1525acfc4771e1c6611": {
 		"properties": {
-			"RepairCost": 621
+			"RepairCost": 621,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"5b40e2bc5acfc40016388216": {
 		"properties": {
-			"RepairCost": 621
+			"RepairCost": 621,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"5b40e3f35acfc40016388218": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
+	"5b40e4035acfc47a87740943": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
+	"5b4325355acfc40019478126": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"69ce8ea6c5fbc777150faf69",
+					"69ce8fa8579d5d18300a1fd3",
+					"69ceab1a8562e71bbe063511",
+					"69ceab3a8562e71bbe063514",
+					"6a622ebeace4474db90fc85c",
+					"6a622f797a1ca14e57077819",
+					"6a8316cb0ccd0eb28d02f264",
+					"6a8316e7608278aaac018b5b"
+				],
+				[]
+			]
 		}
 	},
 	"5b4327aa5acfc400175496e0": {
@@ -2797,8 +3028,8 @@
 		"properties": {
 			"CanSellOnRagfair": true,
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.4,
+				"x": 0.3,
+				"y": 0.85,
 				"z": 75
 			}
 		},
@@ -2892,7 +3123,19 @@
 					"68d54d0525ac8590a8075ac3",
 					"6936fe4a3f4d6dfa3900c33c",
 					"6936ff8734029a096c06f95a",
-					"69412e1d0045b2176002e4eb"
+					"693bb59250fafa102607aeb7",
+					"69412e1d0045b2176002e4eb",
+					"69c139c022093da1c50a8808",
+					"69c14efe66c213ea750e1960",
+					"69c14fa8b33aad3beb036878",
+					"69c1632ca078dbb51e0e31b5",
+					"69c163b17c7040819b086502",
+					"69c264c00f660b3f0d058fcf",
+					"69c26593ea474c30ad069f8f",
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
 				],
 				[]
 			]
@@ -3162,7 +3405,10 @@
 					"69ce70df606696c00301a760",
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
-					"69ce8fa8579d5d18300a1fd3"
+					"69ce8fa8579d5d18300a1fd3",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -3311,6 +3557,15 @@
 					"68bee2e876e02b9e340ef113"
 				]
 			]
+		}
+	},
+	"5b432d215acfc4771e1c6624": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"5b44cad286f77402a54ae7e5": {
@@ -3599,6 +3854,15 @@
 			"Ergonomics": -17,
 			"Recoil": -8.4,
 			"Velocity": 2
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a157f5d8d059ca69c0a7864",
+					"6a157fa8af9c1c57b700778f"
+				],
+				[]
+			]
 		}
 	},
 	"5bb20dadd4351e00367faeff": {
@@ -3619,7 +3883,7 @@
 	},
 	"5bb20dfcd4351e00334c9e24": {
 		"properties": {
-			"Ergonomics": 19.5,
+			"Ergonomics": 19,
 			"Recoil": 0
 		}
 	},
@@ -3793,7 +4057,13 @@
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
 					"69ce8fa8579d5d18300a1fd3",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -3918,7 +4188,10 @@
 					"69ce70df606696c00301a760",
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
-					"69ce8fa8579d5d18300a1fd3"
+					"69ce8fa8579d5d18300a1fd3",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -4050,7 +4323,10 @@
 					"69ce70df606696c00301a760",
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
-					"69ce8fa8579d5d18300a1fd3"
+					"69ce8fa8579d5d18300a1fd3",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -4314,6 +4590,13 @@
 		}
 	},
 	"5c06c6a80db834001b735491": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -4343,6 +4626,13 @@
 		}
 	},
 	"5c08f87c0db8340019124324": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -4361,7 +4651,12 @@
 	},
 	"5c091a4e0db834001d5addc8": {
 		"properties": {
-			"RepairCost": 606
+			"RepairCost": 606,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -4371,6 +4666,15 @@
 				],
 				[]
 			]
+		}
+	},
+	"5c0d2727d174af02a012cf58": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"5c0d32fcd174af02a1659c75": {
@@ -4452,7 +4756,11 @@
 					"698b337c49b46ae2d0092e7f",
 					"698b338649b46ae2d0092e82",
 					"698b358b49b46ae2d0092e86",
-					"698b3592e700c6d632003753"
+					"698b3592e700c6d632003753",
+					"6a15aef607619a15b1023c51",
+					"6a15bf94e5267ba21c07f9b1",
+					"6a15bfa58d059ca69c0a78c0",
+					"6a1d4c9246a6dc414a014973"
 				],
 				[]
 			]
@@ -4465,7 +4773,12 @@
 	},
 	"5c0e874186f7745dc7616606": {
 		"properties": {
-			"RepairCost": 606
+			"RepairCost": 606,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -4575,7 +4888,12 @@
 	},
 	"5c17a7ed2e2216152142459c": {
 		"properties": {
-			"RepairCost": 626
+			"RepairCost": 626,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5c18b90d2e2216152142466b": {
@@ -4900,7 +5218,7 @@
 	},
 	"5c6d10e82e221601da357b07": {
 		"properties": {
-			"Ergonomics": 19.5,
+			"Ergonomics": 18,
 			"Recoil": 0
 		}
 	},
@@ -4911,13 +5229,13 @@
 	},
 	"5c6d11072e2216000e69d2e4": {
 		"properties": {
-			"Ergonomics": 19.5,
+			"Ergonomics": 17,
 			"Recoil": 0
 		}
 	},
 	"5c6d11152e2216000f2003e7": {
 		"properties": {
-			"Ergonomics": 20,
+			"Ergonomics": 19,
 			"Recoil": 0
 		}
 	},
@@ -4955,6 +5273,15 @@
 			"Ergonomics": -3,
 			"Recoil": -5.3,
 			"Velocity": -9
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a157b9e5ef5195441036c12",
+					"6a157f34cbb8d0c82606c54c"
+				],
+				[]
+			]
 		}
 	},
 	"5c78f2492e221600114c9f04": {
@@ -4991,7 +5318,9 @@
 					"68a63ac58e1fe612970728f2",
 					"68c16edf83e2d814b0093f76",
 					"68caaa93269e10396503acf6",
-					"68caabc3f42a4476cf0be2a6"
+					"68caabc3f42a4476cf0be2a6",
+					"6a3ceab8194a2625b40c8641",
+					"6a6895ac4672de9ba1014bcc"
 				],
 				[]
 			]
@@ -5134,7 +5463,12 @@
 	"5ca20ee186f774799474abc2": {
 		"properties": {
 			"CanSellOnRagfair": true,
-			"RepairCost": 787
+			"RepairCost": 787,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5ca2151486f774244a3b8d30": {
@@ -5245,6 +5579,18 @@
 			"LoadUnloadModifier": 15.0
 		}
 	},
+	"5cc700b9e4a949000f0f0f25": {
+		"properties": {
+			"Ergonomics": 26.5,
+			"Recoil": -5
+		}
+	},
+	"5cc700d4e4a949000f0f0f28": {
+		"properties": {
+			"Ergonomics": 1.5,
+			"Recoil": -3
+		}
+	},
 	"5cc70146e4a949000d73bf6b": {
 		"properties": {
 			"Ergonomics": -0.1
@@ -5259,8 +5605,8 @@
 	},
 	"5cc701d7e4a94900100ac4e7": {
 		"properties": {
-			"Ergonomics": -14,
-			"Recoil": -8.1,
+			"Ergonomics": -16.5,
+			"Recoil": -17.1,
 			"Velocity": 9
 		}
 	},
@@ -5362,6 +5708,12 @@
 		"properties": {
 			"Ergonomics": -10,
 			"Recoil": -2
+		}
+	},
+	"5cebec10d7f00c065703d185": {
+		"properties": {
+			"Ergonomics": 26.5,
+			"Recoil": -5
 		}
 	},
 	"5cf12a15d7f00c05464b293f": {
@@ -5578,6 +5930,15 @@
 		"properties": {
 			"Ergonomics": 15,
 			"Recoil": 0
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a16dc8b12144b7727017dad",
+					"6a6895ac4672de9ba1014bcc"
+				],
+				[]
+			]
 		}
 	},
 	"5d15cf3bd7ad1a67e71518b2": {
@@ -5809,12 +6170,22 @@
 	},
 	"5d5e7d28a4b936645d161203": {
 		"properties": {
-			"RepairCost": 657
+			"RepairCost": 657,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5d5e9c74a4b9364855191c40": {
 		"properties": {
-			"RepairCost": 638
+			"RepairCost": 638,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5d5fca1ea4b93635fd598c07": {
@@ -5834,7 +6205,12 @@
 	},
 	"5d6d3716a4b9361bc8618872": {
 		"properties": {
-			"RepairCost": 734
+			"RepairCost": 734,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5d6e6772a4b936088465b17c": {
@@ -6100,6 +6476,13 @@
 		}
 	},
 	"5df8a58286f77412631087ed": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[],
@@ -6199,9 +6582,9 @@
 		"properties": {
 			"RepairCost": 668,
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		}
 	},
@@ -6219,9 +6602,9 @@
 		"properties": {
 			"RepairCost": 668,
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		}
 	},
@@ -6299,6 +6682,15 @@
 	"5e4ac41886f77406a511c9a8": {
 		"properties": {
 			"RepairCost": 700
+		}
+	},
+	"5e4bfc1586f774264f7582d3": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5e4d34ca86f774264f758330": {
@@ -6438,6 +6830,15 @@
 			"LoadUnloadModifier": 10.0
 		}
 	},
+	"5ea05cf85ad9772e6624305d": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"5ea16acdfadf1d18c87b0784": {
 		"properties": {
 			"Ergonomics": 15.5
@@ -6463,7 +6864,12 @@
 	},
 	"5ea17ca01412a1425304d1c0": {
 		"properties": {
-			"RepairCost": 641
+			"RepairCost": 641,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"5ea2a8e200685063ec28c05a": {
@@ -6636,6 +7042,15 @@
 			"RepairCost": 730
 		}
 	},
+	"5f60b34a41e30a4ab12a6947": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
 	"5f60bf4558eff926626a60f2": {
 		"special_properties": {
 			"ConflictingItems": [
@@ -6663,11 +7078,53 @@
 	},
 	"5f60c74e3b85f6263c145586": {
 		"properties": {
-			"RepairCost": 784
+			"RepairCost": 784,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 65
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
+					"5bd06f5d86f77427101ad47c",
+					"5bd0716d86f774171822ef4b",
+					"60a7ad2a2198820d95707a2e",
+					"60a7ad3a0c5cb24b0134664a",
+					"6176a40f0b8c0312ac75a3d3",
+					"6176a48d732a664031271438",
+					"62a09e08de7ac81993580532",
+					"635267ab3c89e2112001f826",
+					"6530e8587cbfc1e309011e37",
+					"657089638db3adca1009f4ca",
+					"6570aead4d84f81fd002a033",
+					"6571bde39837cc51b800c212",
+					"676029a6bdead929d40bc368",
+					"676029ca2749de558a0b7e67",
+					"676029e22749de558a0b7e69",
+					"676029f997f19b78f00a0197",
+					"67602a0f97f19b78f00a0199",
+					"67602a23c8e72a73250de737",
+					"67602a39c8e72a73250de739",
+					"67a4b71ad3228756b6088ee2",
+					"67a5c5b6dfdf568c9009af66",
+					"67a5c5df782ce4655104db14",
+					"67a5c5f37f52620c5b05b4d6",
+					"67a5c6068fcd9fb73f0752cf",
+					"67a5c61c7f52620c5b05b4d8",
+					"67a5c657782ce4655104db16",
+					"688b3bfa1ed594eccd0c45ee",
+					"68a9a04373d52d47830759c7",
+					"68a9a0b01696fb8c1e0ee9cc",
+					"68a9a1223e1ee5a70504c126",
+					"68a9a15d73d52d47830759c9",
+					"68a9b821cdf661cc5a0626c6",
+					"68a9b852cdf661cc5a0626c9",
+					"68a9b873a4b28d56c80a1818",
+					"68d54d0525ac8590a8075ac3",
+					"6936ff8734029a096c06f95a",
+					"693bb59250fafa102607aeb7",
 					"69c139c022093da1c50a8808",
 					"69c14efe66c213ea750e1960",
 					"69c14fa8b33aad3beb036878",
@@ -6675,7 +7132,26 @@
 					"69c163b17c7040819b086502",
 					"69c264c00f660b3f0d058fcf",
 					"69c26593ea474c30ad069f8f",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
+				],
+				[]
+			]
+		}
+	},
+	"5f60c85b58eff926626a60f7": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"59e7715586f7742ee5789605",
+					"5b432c305acfc40019478128",
+					"5e54f79686f7744022011103",
+					"60363c0c92ec1c31037959f5",
+					"689b404db49f27df1c0873f6",
+					"689b880fff8b4adc420f5b56",
+					"6a83168651cfbe231b091a0f"
 				],
 				[]
 			]
@@ -7445,7 +7921,12 @@
 	},
 	"60a7ad2a2198820d95707a2e": {
 		"properties": {
-			"RepairCost": 430
+			"RepairCost": 430,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -7496,7 +7977,10 @@
 					"69ce8fa8579d5d18300a1fd3",
 					"69ceab1a8562e71bbe063511",
 					"69ceab3a8562e71bbe063514",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -7504,7 +7988,12 @@
 	},
 	"60a7ad3a0c5cb24b0134664a": {
 		"properties": {
-			"RepairCost": 430
+			"RepairCost": 430,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -7553,7 +8042,10 @@
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
 					"69ce8fa8579d5d18300a1fd3",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -7568,6 +8060,15 @@
 				],
 				[]
 			]
+		}
+	},
+	"60bf74184a63fc79b60c57f6": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"60dc519adf4c47305f6d410d": {
@@ -7681,7 +8182,7 @@
 		"properties": {
 			"Ergonomics": -23,
 			"Recoil": -10.5,
-			"Velocity": -1
+			"Velocity": -1.2
 		}
 	},
 	"61703001d92c473c77021497": {
@@ -7745,7 +8246,10 @@
 					"69ce8ea6c5fbc777150faf69",
 					"69ce8fa8579d5d18300a1fd3",
 					"69ceab1a8562e71bbe063511",
-					"69ceab3a8562e71bbe063514"
+					"69ceab3a8562e71bbe063514",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -7778,7 +8282,10 @@
 					"69ce8ea6c5fbc777150faf69",
 					"69ce8fa8579d5d18300a1fd3",
 					"69ceab1a8562e71bbe063511",
-					"69ceab3a8562e71bbe063514"
+					"69ceab3a8562e71bbe063514",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[
 					"5e01ef6886f77445f643baa4",
@@ -8071,6 +8578,15 @@
 			"Ergonomics": -1
 		}
 	},
+	"61bca7cda0eae612383adf57": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
 	"61c18d83b00456371a66814b": {
 		"properties": {
 			"weaponErgonomicPenalty": -2.0
@@ -8109,7 +8625,10 @@
 				[
 					"6241c2c2117ad530666a5108",
 					"6761765f1f08ed5e8800b7a6",
-					"68a63b73c92ee33ffa01bf57"
+					"68a63b73c92ee33ffa01bf57",
+					"6a1579afcbb8d0c82606c541",
+					"6a1579bfb507e45a68038d7f",
+					"6a16f3a28873771c3704a132"
 				],
 				[]
 			]
@@ -8465,7 +8984,12 @@
 	},
 	"62963c18dbc8ab5f0d382d0b": {
 		"properties": {
-			"CanSellOnRagfair": true
+			"CanSellOnRagfair": true,
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
 		}
 	},
 	"62a09dd4621468534a797ac7": {
@@ -8648,7 +9172,10 @@
 					"69ce70df606696c00301a760",
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
-					"69ce8fa8579d5d18300a1fd3"
+					"69ce8fa8579d5d18300a1fd3",
+					"6a567ae55cbe811cbe0136a8",
+					"6a568340263768e2ae0c9696",
+					"6a568dda1d89fcfb35010389"
 				],
 				[]
 			]
@@ -8660,6 +9187,9 @@
 		}
 	},
 	"62a61bbf8ec41a51b34758d2": {
+		"properties": {
+			"CanSellOnRagfair": true
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -8709,7 +9239,17 @@
 			"ConflictingItems": [
 				[
 					"6984b690b457c5047e0c01fa",
-					"6984b74a5aab442620032fe6"
+					"6984b74a5aab442620032fe6",
+					"6a16f3711c209e26040a5410",
+					"6a16f3811c209e26040a5413",
+					"6a1708253dfad1cb790c91ed",
+					"6a671d320578b5a41000c298",
+					"6a6720479d7f57e84800faed",
+					"6a6720592ff856278106eb3e",
+					"6a6721edecf09d43410cba5a",
+					"6a6724bddfb2de5e320d451d",
+					"6a67250406a5419b2508f23e",
+					"6a675e0706a5419b2508f26c"
 				],
 				[]
 			]
@@ -8815,6 +9355,11 @@
 			"Ergonomics": 3
 		}
 	},
+	"634959225289190e5e773b3b": {
+		"properties": {
+			"CanSellOnRagfair": false
+		}
+	},
 	"634e61b0767cb15c4601a877": {
 		"properties": {
 			"Recoil": -1
@@ -8851,7 +9396,10 @@
 					"69c163b17c7040819b086502",
 					"69c264c00f660b3f0d058fcf",
 					"69c26593ea474c30ad069f8f",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
 				],
 				[]
 			]
@@ -8876,7 +9424,12 @@
 					"68c170e383e2d814b0093f87",
 					"68caac28f42a4476cf0be2ac",
 					"68caac360bfe742288085e16",
-					"68cc2ae66e59cb54f4054f47"
+					"68cc2ae66e59cb54f4054f47",
+					"6a147ad5eff5b3bf690c2c0d",
+					"6a1567ce0cce01965f0bee01",
+					"6a156ac407619a15b1023bf0",
+					"6a1571b8060f61ca2c03e06f",
+					"6a6759a5ca1e7d40a007a56f"
 				],
 				[]
 			]
@@ -9177,6 +9730,15 @@
 		"properties": {
 			"Ergonomics": 15,
 			"Recoil": 0
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a16dc8b12144b7727017dad",
+					"6a6895ac4672de9ba1014bcc"
+				],
+				[]
+			]
 		}
 	},
 	"647dba3142c479dde701b654": {
@@ -10366,6 +10928,11 @@
 	"657089638db3adca1009f4ca": {
 		"properties": {
 			"RepairCost": 360,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
 			"armorClass": 3
 		},
 		"special_properties": {
@@ -10509,12 +11076,63 @@
 			"CanSellOnRagfair": true
 		}
 	},
+	"65709d2d21b9f815e208ff95": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"5b432b2f5acfc4771e1c6622",
+					"5b432b6c5acfc4001a599bf0",
+					"5bd06f5d86f77427101ad47c",
+					"5bd0716d86f774171822ef4b",
+					"5bd071d786f7747e707b93a3",
+					"60a7ad2a2198820d95707a2e",
+					"60a7ad3a0c5cb24b0134664a",
+					"6176a40f0b8c0312ac75a3d3",
+					"6176a48d732a664031271438",
+					"62a09e08de7ac81993580532",
+					"657089638db3adca1009f4ca",
+					"676029a6bdead929d40bc368",
+					"676029ca2749de558a0b7e67",
+					"676029e22749de558a0b7e69",
+					"676029f997f19b78f00a0197",
+					"67602a0f97f19b78f00a0199",
+					"67602a23c8e72a73250de737",
+					"67602a39c8e72a73250de739",
+					"67a4b71ad3228756b6088ee2",
+					"67a5c5b6dfdf568c9009af66",
+					"67a5c5df782ce4655104db14",
+					"67a5c5f37f52620c5b05b4d6",
+					"67a5c6068fcd9fb73f0752cf",
+					"67a5c61c7f52620c5b05b4d8",
+					"67a5c657782ce4655104db16",
+					"688b3bfa1ed594eccd0c45ee",
+					"68a9a04373d52d47830759c7",
+					"68a9a0b01696fb8c1e0ee9cc",
+					"68a9a1223e1ee5a70504c126",
+					"68a9a15d73d52d47830759c9",
+					"68d54d0525ac8590a8075ac3",
+					"6936ff8734029a096c06f95a"
+				],
+				[]
+			]
+		}
+	},
 	"6570a88c8f221f3b210353b7": {
 		"special_properties": {
 			"ConflictingItems": [
 				[
 					"69cfe083ce0df53f230f29b0",
-					"69cfe095b96c8e8d3e002aa3"
+					"69cfe095b96c8e8d3e002aa3",
+					"6a8338846a6ba231700536db",
+					"6a8338b4350dd848e70feefd",
+					"6a8338bc992762b7bf08ffb3"
 				],
 				[]
 			]
@@ -10532,7 +11150,12 @@
 	},
 	"65719f0775149d62ce0a670b": {
 		"properties": {
-			"RepairCost": 668
+			"RepairCost": 668,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"6576f4708ca9c4381d16cd9d": {
@@ -10941,17 +11564,32 @@
 	},
 	"66b5f65ca7f72d197e70bcd6": {
 		"properties": {
-			"RepairCost": 641
+			"RepairCost": 641,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"66b5f661af44ca0014063c05": {
 		"properties": {
-			"RepairCost": 641
+			"RepairCost": 641,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"66b5f666cad6f002ab7214c2": {
 		"properties": {
-			"RepairCost": 641
+			"RepairCost": 641,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
 		}
 	},
 	"66b5f68de98be930d701c00e": {
@@ -11102,11 +11740,14 @@
 	},
 	"66bdc28a0b603c26902b2011": {
 		"properties": {
+			"DeafStrength": "Low",
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.4,
-				"z": 75
-			}
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			},
+			"mousePenalty": 0,
+			"speedPenaltyPercent": 0
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -11446,6 +12087,15 @@
 			"Recoil": 0
 		}
 	},
+	"6745895717824b1ec20570a6": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"6749c40822a2740bb408d066": {
 		"properties": {
 			"CheckTimeModifier": 10.0,
@@ -11528,18 +12178,18 @@
 	"675956062f6ddfe8ff0e2806": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		}
 	},
 	"6759655674aa5e0825040d62": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		}
 	},
@@ -11547,9 +12197,9 @@
 		"properties": {
 			"DeafStrength": "None",
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		},
 		"special_properties": {
@@ -11566,9 +12216,9 @@
 		"properties": {
 			"DeafStrength": "None",
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
-				"z": 65
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
 			}
 		},
 		"special_properties": {
@@ -11583,7 +12233,12 @@
 	},
 	"6759af0f9c8a538dd70bfae6": {
 		"properties": {
-			"RepairCost": 606
+			"RepairCost": 606,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -12595,7 +13250,12 @@
 	},
 	"678f84bb9e85556ca60f0362": {
 		"properties": {
-			"RepairCost": 520
+			"RepairCost": 520,
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -12628,7 +13288,12 @@
 	},
 	"67a4b71ad3228756b6088ee2": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -12768,7 +13433,12 @@
 	},
 	"67a5c5b6dfdf568c9009af66": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -12908,7 +13578,12 @@
 	},
 	"67a5c5df782ce4655104db14": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -13048,7 +13723,12 @@
 	},
 	"67a5c5f37f52620c5b05b4d6": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -13188,7 +13868,12 @@
 	},
 	"67a5c6068fcd9fb73f0752cf": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -13328,7 +14013,12 @@
 	},
 	"67a5c61c7f52620c5b05b4d8": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -13468,7 +14158,12 @@
 	},
 	"67a5c657782ce4655104db16": {
 		"properties": {
-			"RepairCost": 300
+			"RepairCost": 300,
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -13927,6 +14622,13 @@
 		}
 	},
 	"688b3bfa1ed594eccd0c45ee": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -14084,6 +14786,16 @@
 			]
 		}
 	},
+	"688cbdc341e2a57a8f0c1c6c": {
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"619b69037b9de8162902673e"
+				]
+			]
+		}
+	},
 	"689166b6c2d6fa42e7044756": {
 		"properties": {
 			"RecoilForceBack": 325,
@@ -14110,15 +14822,15 @@
 	},
 	"6895bd19d55f0ebf6a0c0306": {
 		"properties": {
-			"Ergonomics": 19.5,
+			"Ergonomics": 19,
 			"Recoil": 0
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
 				[
-					"6357c98711fb55120211f7e1"
-				]
+					"68a86bd51d1284a8e20e39d5"
+				],
+				[]
 			]
 		}
 	},
@@ -14130,6 +14842,7 @@
 	},
 	"689b3fffa1295e322207a677": {
 		"properties": {
+			"BlindnessProtection": 0.2,
 			"weaponErgonomicPenalty": 0
 		}
 	},
@@ -14147,14 +14860,6 @@
 	"68a5dc0c2cd64a8b58023b87": {
 		"properties": {
 			"CanSellOnRagfair": false
-		},
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"6357c98711fb55120211f7e1"
-				]
-			]
 		}
 	},
 	"68a5dc4eed35a7eac1048ff6": {
@@ -14162,14 +14867,6 @@
 			"CanSellOnRagfair": false,
 			"Ergonomics": 14,
 			"Recoil": 0
-		},
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"6357c98711fb55120211f7e1"
-				]
-			]
 		}
 	},
 	"68a63ac58e1fe612970728f2": {
@@ -14177,9 +14874,20 @@
 			"Ergonomics": -32,
 			"Recoil": -10.2,
 			"Velocity": 5
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5c78f2882e22165df16b832e"
+				]
+			]
 		}
 	},
 	"68a63bc422b1e0bd360afe61": {
+		"properties": {
+			"Ergonomics": 3
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[],
@@ -14209,7 +14917,7 @@
 	"68a63c7322b1e0bd360afe65": {
 		"properties": {
 			"Ergonomics": 5,
-			"Recoil": -21
+			"Recoil": -20.5
 		},
 		"special_properties": {
 			"ConflictingItems": [
@@ -14329,9 +15037,35 @@
 			]
 		}
 	},
+	"68a6d95addf0111c2f04c9c3": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"68a6d96fddf0111c2f04c9c9": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.2,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"68a6e8fd4ac5b037cb0e9b86": {
 		"properties": {
 			"CanSellOnRagfair": false
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"68caac02269e10396503acfa"
+				],
+				[]
+			]
 		}
 	},
 	"68a6f3b27279296357007cd7": {
@@ -14342,9 +15076,13 @@
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
 				[
-					"6357c98711fb55120211f7e1"
+					"55d35ee94bdc2d61338b4568",
+					"68a63ac58e1fe612970728f2"
+				],
+				[
+					"5a34fae7c4a2826c6e06d760",
+					"5dfa397fb11454561e39246c"
 				]
 			]
 		}
@@ -14357,10 +15095,11 @@
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
 				[
-					"6357c98711fb55120211f7e1"
-				]
+					"68a86bd51d1284a8e20e39d5",
+					"68caac02269e10396503acfa"
+				],
+				[]
 			]
 		}
 	},
@@ -14372,10 +15111,12 @@
 		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
 				[
-					"6357c98711fb55120211f7e1"
-				]
+					"68a86bd51d1284a8e20e39d5",
+					"68caabc3f42a4476cf0be2a6",
+					"68caac02269e10396503acfa"
+				],
+				[]
 			]
 		}
 	},
@@ -14392,27 +15133,11 @@
 	"68a6fff085a17dc1cb008066": {
 		"properties": {
 			"CanSellOnRagfair": false
-		},
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"6357c98711fb55120211f7e1"
-				]
-			]
 		}
 	},
 	"68a7000d7708ac5120060527": {
 		"properties": {
 			"CanSellOnRagfair": false
-		},
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"6357c98711fb55120211f7e1"
-				]
-			]
 		}
 	},
 	"68a86bd51d1284a8e20e39d5": {
@@ -14420,12 +15145,31 @@
 			"Ergonomics": -4,
 			"Recoil": -5.8,
 			"Velocity": -6
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a6759a5ca1e7d40a007a56f"
+				],
+				[]
+			]
 		}
 	},
 	"68a986ca5c0073fa2d0d8cb8": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
-				[],
+				[
+					"69d3c156cdeff2f448010e2e",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
+				],
 				[
 					"62a5c41e8ec41a51b34739c3"
 				]
@@ -14433,6 +15177,13 @@
 		}
 	},
 	"68a98762609a5cb2120ebd26": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[],
@@ -14443,6 +15194,13 @@
 		}
 	},
 	"68a987a1609a5cb2120ebd2f": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[],
@@ -14460,6 +15218,14 @@
 		}
 	},
 	"68a9a04373d52d47830759c7": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
+			"armorClass": 3
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -14597,6 +15363,14 @@
 		}
 	},
 	"68a9a0b01696fb8c1e0ee9cc": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
+			"armorClass": 3
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -14734,6 +15508,14 @@
 		}
 	},
 	"68a9a1223e1ee5a70504c126": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
+			"armorClass": 3
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -14871,6 +15653,14 @@
 		}
 	},
 	"68a9a15d73d52d47830759c9": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
+			"armorClass": 3
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -15010,8 +15800,8 @@
 	"68a9a85c3e1ee5a70504c12e": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.4,
+				"x": 0.3,
+				"y": 0.85,
 				"z": 75
 			}
 		},
@@ -15122,8 +15912,8 @@
 	"68a9a92b838d65bcb3050176": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.4,
+				"x": 0.3,
+				"y": 0.85,
 				"z": 75
 			}
 		},
@@ -15223,6 +16013,24 @@
 			]
 		}
 	},
+	"68a9b3ca0a9c4f9398032c46": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
+	"68a9b5a5863d2a71fa0494a6": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.85,
+				"z": 75
+			}
+		}
+	},
 	"68a9b6c8d3a061d8b6058346": {
 		"special_properties": {
 			"ConflictingItems": [
@@ -15277,12 +16085,112 @@
 			]
 		}
 	},
+	"68a9be93f260f4e1c2038686": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"5b432b2f5acfc4771e1c6622",
+					"5b432b6c5acfc4001a599bf0",
+					"5bd06f5d86f77427101ad47c",
+					"5bd0716d86f774171822ef4b",
+					"5bd071d786f7747e707b93a3",
+					"60a7ad2a2198820d95707a2e",
+					"60a7ad3a0c5cb24b0134664a",
+					"6176a40f0b8c0312ac75a3d3",
+					"6176a48d732a664031271438",
+					"62a09e08de7ac81993580532",
+					"657089638db3adca1009f4ca",
+					"676029a6bdead929d40bc368",
+					"676029ca2749de558a0b7e67",
+					"676029e22749de558a0b7e69",
+					"676029f997f19b78f00a0197",
+					"67602a0f97f19b78f00a0199",
+					"67602a23c8e72a73250de737",
+					"67602a39c8e72a73250de739",
+					"67a4b71ad3228756b6088ee2",
+					"67a5c5b6dfdf568c9009af66",
+					"67a5c5df782ce4655104db14",
+					"67a5c5f37f52620c5b05b4d6",
+					"67a5c6068fcd9fb73f0752cf",
+					"67a5c61c7f52620c5b05b4d8",
+					"67a5c657782ce4655104db16",
+					"688b3bfa1ed594eccd0c45ee",
+					"68a9a04373d52d47830759c7",
+					"68a9a0b01696fb8c1e0ee9cc",
+					"68a9a1223e1ee5a70504c126",
+					"68a9a15d73d52d47830759c9",
+					"68d54d0525ac8590a8075ac3",
+					"6936ff8734029a096c06f95a"
+				],
+				[]
+			]
+		}
+	},
+	"68a9beecbba00932ed0bc256": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"5b432b2f5acfc4771e1c6622",
+					"5b432b6c5acfc4001a599bf0",
+					"5bd06f5d86f77427101ad47c",
+					"5bd0716d86f774171822ef4b",
+					"5bd071d786f7747e707b93a3",
+					"60a7ad2a2198820d95707a2e",
+					"60a7ad3a0c5cb24b0134664a",
+					"6176a40f0b8c0312ac75a3d3",
+					"6176a48d732a664031271438",
+					"62a09e08de7ac81993580532",
+					"657089638db3adca1009f4ca",
+					"676029a6bdead929d40bc368",
+					"676029ca2749de558a0b7e67",
+					"676029e22749de558a0b7e69",
+					"676029f997f19b78f00a0197",
+					"67602a0f97f19b78f00a0199",
+					"67602a23c8e72a73250de737",
+					"67602a39c8e72a73250de739",
+					"67a4b71ad3228756b6088ee2",
+					"67a5c5b6dfdf568c9009af66",
+					"67a5c5df782ce4655104db14",
+					"67a5c5f37f52620c5b05b4d6",
+					"67a5c6068fcd9fb73f0752cf",
+					"67a5c61c7f52620c5b05b4d8",
+					"67a5c657782ce4655104db16",
+					"688b3bfa1ed594eccd0c45ee",
+					"68a9a04373d52d47830759c7",
+					"68a9a0b01696fb8c1e0ee9cc",
+					"68a9a1223e1ee5a70504c126",
+					"68a9a15d73d52d47830759c9",
+					"68d54d0525ac8590a8075ac3",
+					"6936ff8734029a096c06f95a"
+				],
+				[]
+			]
+		}
+	},
 	"68a9bf7d9f4c45817b0d83b6": {
 		"special_properties": {
 			"ConflictingItems": [
 				[
+					"5ab8f85d86f7745cd93a1cf5",
 					"69cfe083ce0df53f230f29b0",
-					"69cfe095b96c8e8d3e002aa3"
+					"69cfe095b96c8e8d3e002aa3",
+					"6a8338846a6ba231700536db",
+					"6a8338b4350dd848e70feefd",
+					"6a8338bc992762b7bf08ffb3"
 				],
 				[]
 			]
@@ -15293,7 +16201,10 @@
 			"ConflictingItems": [
 				[
 					"69cfe083ce0df53f230f29b0",
-					"69cfe095b96c8e8d3e002aa3"
+					"69cfe095b96c8e8d3e002aa3",
+					"6a8338846a6ba231700536db",
+					"6a8338b4350dd848e70feefd",
+					"6a8338bc992762b7bf08ffb3"
 				],
 				[]
 			]
@@ -15819,21 +16730,285 @@
 		}
 	},
 	"68bee22e79c8186398098e6d": {
-		"properties": {
-			"RepairCost": 98
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5448e5724bdc2ddf718b4568",
+					"5645bc214bdc2d363b8b4571",
+					"59e7711e86f7746cae05fbe1",
+					"5a154d5cfcdbcb001a3b00da",
+					"5a16bb52fcdbcb001a3b00dc",
+					"5a7c4850e899ef00150be885",
+					"5aa7cfc0e5b5b00015693143",
+					"5aa7d03ae5b5b00016327db5",
+					"5aa7d193e5b5b000171d063f",
+					"5aa7e276e5b5b000171d0647",
+					"5aa7e454e5b5b0214e506fa2",
+					"5aa7e4a4e5b5b000137b76f2",
+					"5ac8d6885acfc400180ae7b0",
+					"5b40e1525acfc4771e1c6611",
+					"5b40e2bc5acfc40016388216",
+					"5b40e3f35acfc40016388218",
+					"5b40e4035acfc47a87740943",
+					"5b432d215acfc4771e1c6624",
+					"5c066ef40db834001966a595",
+					"5c08f87c0db8340019124324",
+					"5c091a4e0db834001d5addc8",
+					"5c0d2727d174af02a012cf58",
+					"5c0e874186f7745dc7616606",
+					"5c17a7ed2e2216152142459c",
+					"5ca20ee186f774799474abc2",
+					"5d5e7d28a4b936645d161203",
+					"5d5e9c74a4b9364855191c40",
+					"5d6d3716a4b9361bc8618872",
+					"5df8a58286f77412631087ed",
+					"5e00c1ad86f774747333222c",
+					"5e01ef6886f77445f643baa4",
+					"5e4bfc1586f774264f7582d3",
+					"5ea05cf85ad9772e6624305d",
+					"5ea17ca01412a1425304d1c0",
+					"5f60b34a41e30a4ab12a6947",
+					"5f60c74e3b85f6263c145586",
+					"61bca7cda0eae612383adf57",
+					"65709d2d21b9f815e208ff95",
+					"65719f0775149d62ce0a670b",
+					"66b5f65ca7f72d197e70bcd6",
+					"66b5f661af44ca0014063c05",
+					"66b5f666cad6f002ab7214c2",
+					"6745895717824b1ec20570a6",
+					"675956062f6ddfe8ff0e2806",
+					"6759655674aa5e0825040d62",
+					"67597ceea35600b4c10cea86",
+					"67597d241d5a44f2f605df06",
+					"6759af0f9c8a538dd70bfae6",
+					"68a986ca5c0073fa2d0d8cb8",
+					"68a98762609a5cb2120ebd26",
+					"68a987a1609a5cb2120ebd2f",
+					"68a9b3ca0a9c4f9398032c46",
+					"68a9b5a5863d2a71fa0494a6",
+					"68a9be93f260f4e1c2038686",
+					"68a9beecbba00932ed0bc256",
+					"68bee2ccd6da72c13f03db95",
+					"68bee2d9af253218c00ebbb4",
+					"68bee2e0ede5c8489f08e1b5",
+					"68bee2e876e02b9e340ef113"
+				]
+			]
 		}
 	},
 	"68bee238a48c3c320808abc4": {
-		"properties": {
-			"RepairCost": 98
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5448e5724bdc2ddf718b4568",
+					"5645bc214bdc2d363b8b4571",
+					"59e7711e86f7746cae05fbe1",
+					"5a154d5cfcdbcb001a3b00da",
+					"5a16bb52fcdbcb001a3b00dc",
+					"5a7c4850e899ef00150be885",
+					"5aa7cfc0e5b5b00015693143",
+					"5aa7d03ae5b5b00016327db5",
+					"5aa7d193e5b5b000171d063f",
+					"5aa7e276e5b5b000171d0647",
+					"5aa7e454e5b5b0214e506fa2",
+					"5aa7e4a4e5b5b000137b76f2",
+					"5ac8d6885acfc400180ae7b0",
+					"5b40e1525acfc4771e1c6611",
+					"5b40e2bc5acfc40016388216",
+					"5b40e3f35acfc40016388218",
+					"5b40e4035acfc47a87740943",
+					"5b432d215acfc4771e1c6624",
+					"5c066ef40db834001966a595",
+					"5c08f87c0db8340019124324",
+					"5c091a4e0db834001d5addc8",
+					"5c0d2727d174af02a012cf58",
+					"5c0e874186f7745dc7616606",
+					"5c17a7ed2e2216152142459c",
+					"5ca20ee186f774799474abc2",
+					"5d5e7d28a4b936645d161203",
+					"5d5e9c74a4b9364855191c40",
+					"5d6d3716a4b9361bc8618872",
+					"5df8a58286f77412631087ed",
+					"5e00c1ad86f774747333222c",
+					"5e01ef6886f77445f643baa4",
+					"5e4bfc1586f774264f7582d3",
+					"5ea05cf85ad9772e6624305d",
+					"5ea17ca01412a1425304d1c0",
+					"5f60b34a41e30a4ab12a6947",
+					"5f60c74e3b85f6263c145586",
+					"61bca7cda0eae612383adf57",
+					"65709d2d21b9f815e208ff95",
+					"65719f0775149d62ce0a670b",
+					"66b5f65ca7f72d197e70bcd6",
+					"66b5f661af44ca0014063c05",
+					"66b5f666cad6f002ab7214c2",
+					"6745895717824b1ec20570a6",
+					"675956062f6ddfe8ff0e2806",
+					"6759655674aa5e0825040d62",
+					"67597ceea35600b4c10cea86",
+					"67597d241d5a44f2f605df06",
+					"6759af0f9c8a538dd70bfae6",
+					"68a986ca5c0073fa2d0d8cb8",
+					"68a98762609a5cb2120ebd26",
+					"68a987a1609a5cb2120ebd2f",
+					"68a9b3ca0a9c4f9398032c46",
+					"68a9b5a5863d2a71fa0494a6",
+					"68a9be93f260f4e1c2038686",
+					"68a9beecbba00932ed0bc256",
+					"68bee2ccd6da72c13f03db95",
+					"68bee2d9af253218c00ebbb4",
+					"68bee2e0ede5c8489f08e1b5",
+					"68bee2e876e02b9e340ef113"
+				]
+			]
+		}
+	},
+	"68bee23f6b0736bebc012add": {
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5448e5724bdc2ddf718b4568",
+					"5645bc214bdc2d363b8b4571",
+					"59e7711e86f7746cae05fbe1",
+					"5a154d5cfcdbcb001a3b00da",
+					"5a16bb52fcdbcb001a3b00dc",
+					"5a7c4850e899ef00150be885",
+					"5aa7cfc0e5b5b00015693143",
+					"5aa7d03ae5b5b00016327db5",
+					"5aa7d193e5b5b000171d063f",
+					"5aa7e276e5b5b000171d0647",
+					"5aa7e454e5b5b0214e506fa2",
+					"5aa7e4a4e5b5b000137b76f2",
+					"5ac8d6885acfc400180ae7b0",
+					"5b40e1525acfc4771e1c6611",
+					"5b40e2bc5acfc40016388216",
+					"5b40e3f35acfc40016388218",
+					"5b40e4035acfc47a87740943",
+					"5b432d215acfc4771e1c6624",
+					"5c066ef40db834001966a595",
+					"5c08f87c0db8340019124324",
+					"5c091a4e0db834001d5addc8",
+					"5c0d2727d174af02a012cf58",
+					"5c0e874186f7745dc7616606",
+					"5c17a7ed2e2216152142459c",
+					"5ca20ee186f774799474abc2",
+					"5d5e7d28a4b936645d161203",
+					"5d5e9c74a4b9364855191c40",
+					"5d6d3716a4b9361bc8618872",
+					"5df8a58286f77412631087ed",
+					"5e00c1ad86f774747333222c",
+					"5e01ef6886f77445f643baa4",
+					"5e4bfc1586f774264f7582d3",
+					"5ea05cf85ad9772e6624305d",
+					"5ea17ca01412a1425304d1c0",
+					"5f60b34a41e30a4ab12a6947",
+					"5f60c74e3b85f6263c145586",
+					"61bca7cda0eae612383adf57",
+					"65709d2d21b9f815e208ff95",
+					"65719f0775149d62ce0a670b",
+					"66b5f65ca7f72d197e70bcd6",
+					"66b5f661af44ca0014063c05",
+					"66b5f666cad6f002ab7214c2",
+					"6745895717824b1ec20570a6",
+					"675956062f6ddfe8ff0e2806",
+					"6759655674aa5e0825040d62",
+					"67597ceea35600b4c10cea86",
+					"67597d241d5a44f2f605df06",
+					"6759af0f9c8a538dd70bfae6",
+					"68a986ca5c0073fa2d0d8cb8",
+					"68a98762609a5cb2120ebd26",
+					"68a987a1609a5cb2120ebd2f",
+					"68a9b3ca0a9c4f9398032c46",
+					"68a9b5a5863d2a71fa0494a6",
+					"68a9be93f260f4e1c2038686",
+					"68a9beecbba00932ed0bc256",
+					"68bee2ccd6da72c13f03db95",
+					"68bee2d9af253218c00ebbb4",
+					"68bee2e0ede5c8489f08e1b5",
+					"68bee2e876e02b9e340ef113"
+				]
+			]
 		}
 	},
 	"68bee246ede5c8489f08e1b3": {
-		"properties": {
-			"RepairCost": 98
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5448e5724bdc2ddf718b4568",
+					"5645bc214bdc2d363b8b4571",
+					"59e7711e86f7746cae05fbe1",
+					"5a154d5cfcdbcb001a3b00da",
+					"5a16bb52fcdbcb001a3b00dc",
+					"5a7c4850e899ef00150be885",
+					"5aa7cfc0e5b5b00015693143",
+					"5aa7d03ae5b5b00016327db5",
+					"5aa7d193e5b5b000171d063f",
+					"5aa7e276e5b5b000171d0647",
+					"5aa7e454e5b5b0214e506fa2",
+					"5aa7e4a4e5b5b000137b76f2",
+					"5ac8d6885acfc400180ae7b0",
+					"5b40e1525acfc4771e1c6611",
+					"5b40e2bc5acfc40016388216",
+					"5b40e3f35acfc40016388218",
+					"5b40e4035acfc47a87740943",
+					"5b432d215acfc4771e1c6624",
+					"5c066ef40db834001966a595",
+					"5c08f87c0db8340019124324",
+					"5c091a4e0db834001d5addc8",
+					"5c0d2727d174af02a012cf58",
+					"5c0e874186f7745dc7616606",
+					"5c17a7ed2e2216152142459c",
+					"5ca20ee186f774799474abc2",
+					"5d5e7d28a4b936645d161203",
+					"5d5e9c74a4b9364855191c40",
+					"5d6d3716a4b9361bc8618872",
+					"5df8a58286f77412631087ed",
+					"5e00c1ad86f774747333222c",
+					"5e01ef6886f77445f643baa4",
+					"5e4bfc1586f774264f7582d3",
+					"5ea05cf85ad9772e6624305d",
+					"5ea17ca01412a1425304d1c0",
+					"5f60b34a41e30a4ab12a6947",
+					"5f60c74e3b85f6263c145586",
+					"61bca7cda0eae612383adf57",
+					"65709d2d21b9f815e208ff95",
+					"65719f0775149d62ce0a670b",
+					"66b5f65ca7f72d197e70bcd6",
+					"66b5f661af44ca0014063c05",
+					"66b5f666cad6f002ab7214c2",
+					"6745895717824b1ec20570a6",
+					"675956062f6ddfe8ff0e2806",
+					"6759655674aa5e0825040d62",
+					"67597ceea35600b4c10cea86",
+					"67597d241d5a44f2f605df06",
+					"6759af0f9c8a538dd70bfae6",
+					"68a986ca5c0073fa2d0d8cb8",
+					"68a98762609a5cb2120ebd26",
+					"68a987a1609a5cb2120ebd2f",
+					"68a9b3ca0a9c4f9398032c46",
+					"68a9b5a5863d2a71fa0494a6",
+					"68a9be93f260f4e1c2038686",
+					"68a9beecbba00932ed0bc256",
+					"68bee2ccd6da72c13f03db95",
+					"68bee2d9af253218c00ebbb4",
+					"68bee2e0ede5c8489f08e1b5",
+					"68bee2e876e02b9e340ef113"
+				]
+			]
 		}
 	},
 	"68bee28f79c8186398098e6f": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -15851,7 +17026,50 @@
 			]
 		}
 	},
+	"68bee2ccd6da72c13f03db95": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"68bee2d9af253218c00ebbb4": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"68bee2e0ede5c8489f08e1b5": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
+	"68bee2e876e02b9e340ef113": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		}
+	},
 	"68bf405779c8186398099017": {
+		"properties": {
+			"CanSellOnRagfair": true,
+			"CompressorGain": 0,
+			"CompressorThreshold": -10,
+			"Distortion": 0.18,
+			"RolloffMultiplier": 1
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -15990,6 +17208,25 @@
 			]
 		}
 	},
+	"68c294800f5ebd68290d6c20": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a157f5d8d059ca69c0a7864",
+					"6a157fa8af9c1c57b700778f"
+				],
+				[
+					"55d459824bdc2d892f8b4573",
+					"5ae30db85acfc408fb139a05",
+					"5c0e2f5cd174af02a012cfc9",
+					"5c78f26f2e221601da3581d1",
+					"5c78f2792e221600106f4683",
+					"5d00e0cbd7ad1a6c6566a42d",
+					"5d00f63bd7ad1a59283b1c1e"
+				]
+			]
+		}
+	},
 	"68c294b9eb59c46bf6070536": {
 		"properties": {
 			"Ergonomics": -5,
@@ -16007,6 +17244,18 @@
 			"Ergonomics": -27,
 			"Recoil": -9.1,
 			"Velocity": 3
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a675d00358304130d098d4f",
+					"6a675d75fd8364ead7039dd8",
+					"6a675d8f2ff856278106eb69"
+				],
+				[
+					"5c78f2882e22165df16b832e"
+				]
+			]
 		}
 	},
 	"68caabc3f42a4476cf0be2a6": {
@@ -16014,6 +17263,53 @@
 			"Ergonomics": -15,
 			"Recoil": -8.1,
 			"Velocity": 2
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a675d00358304130d098d4f",
+					"6a675d75fd8364ead7039dd8",
+					"6a675d8f2ff856278106eb69"
+				],
+				[]
+			]
+		}
+	},
+	"68caac02269e10396503acfa": {
+		"special_properties": {
+			"ConflictingItems": [
+				[],
+				[
+					"5b2cfa535acfc432ff4db7a0",
+					"5c6d5d8b2e221644fc630b39",
+					"5c78f2492e221600114c9f04",
+					"5c78f2612e221600114c9f0d",
+					"5c9a25172e2216000f20314e",
+					"5d122e7bd7ad1a07102d6d7f",
+					"5d4405f0a4b9361e6a4e6bd9",
+					"5ea16acdfadf1d18c87b0784",
+					"5ea16ada09aa976f2e7a51be",
+					"6034e3cb0ddce744014cb870",
+					"6034e3d953a60014f970617b",
+					"6034e3e20ddce744014cb878",
+					"6087e0336d0bd7580617bb7a",
+					"619b5db699fb192e7430664f",
+					"63888bbd28e5cc32cc09d2b6",
+					"640b20359ab20e15ee445fa9",
+					"6895bd19d55f0ebf6a0c0306",
+					"68a6ff732885e0bbd30bb6f9",
+					"68a6ff952885e0bbd30bb6fd",
+					"68c1707983e2d814b0093f7e",
+					"68c170e383e2d814b0093f87",
+					"68caac28f42a4476cf0be2ac",
+					"68caac360bfe742288085e16",
+					"68cc2ae66e59cb54f4054f47",
+					"6a147ad5eff5b3bf690c2c0d",
+					"6a1567ce0cce01965f0bee01",
+					"6a156a75cbb8d0c82606c525",
+					"6a156a9407619a15b1023be7"
+				]
+			]
 		}
 	},
 	"68caac14f42a4476cf0be2aa": {
@@ -16064,6 +17360,38 @@
 			"Ergonomics": 2
 		}
 	},
+	"68caac96933990601c07f476": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"5cc701aae4a949000e1ea45c",
+					"6a15b1fdbf497aade1003af2",
+					"6a28137cc55ac6942e06ba16",
+					"6a3cea4494a96a17e00c4b69"
+				],
+				[
+					"5c78f2882e22165df16b832e"
+				]
+			]
+		}
+	},
+	"68caacb4c8ac87b10507c5a6": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a147ad5eff5b3bf690c2c0d",
+					"6a1567ce0cce01965f0bee01",
+					"6a156a75cbb8d0c82606c525",
+					"6a156a9407619a15b1023be7",
+					"6a15785370efdef7be017253",
+					"6a1578658d059ca69c0a7853",
+					"6a3ceadb6280cb85bc03f99a",
+					"6a6759a5ca1e7d40a007a56f"
+				],
+				[]
+			]
+		}
+	},
 	"68caad12269e10396503acfe": {
 		"properties": {
 			"Ergonomics": -16.5,
@@ -16087,6 +17415,11 @@
 	},
 	"68d54d0525ac8590a8075ac3": {
 		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			},
 			"armorClass": 3
 		},
 		"special_properties": {
@@ -16240,6 +17573,14 @@
 		"properties": {
 			"Ergonomics": 10,
 			"Recoil": -22
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"619b69037b9de8162902673e"
+				],
+				[]
+			]
 		}
 	},
 	"68d5674bb2573b07dc0d225f": {
@@ -16260,6 +17601,9 @@
 		}
 	},
 	"6932ac8fbccfa5c5a00b5a76": {
+		"properties": {
+			"Ergonomics": 2
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[],
@@ -16299,19 +17643,6 @@
 			]
 		}
 	},
-	"6932aeebbe542622170428ba": {
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"5d00ef6dd7ad1a0940739b16",
-					"5df916dfbb49d91fb446d6b9",
-					"5f6336bbda967c74a42e9932",
-					"6065881d1246154cad35d637"
-				]
-			]
-		}
-	},
 	"6932af0bbe542622170428bd": {
 		"special_properties": {
 			"ConflictingItems": [
@@ -16326,6 +17657,14 @@
 		"properties": {
 			"Ergonomics": -18,
 			"Recoil": -9
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a158e63060f61ca2c03e096"
+				],
+				[]
+			]
 		}
 	},
 	"6936bd64b2b5b688e50cde36": {
@@ -16357,26 +17696,28 @@
 			]
 		}
 	},
-	"6936bde84737190b66053bb1": {
-		"special_properties": {
-			"ConflictingItems": [
-				[],
-				[
-					"5d00ef6dd7ad1a0940739b16",
-					"5df916dfbb49d91fb446d6b9",
-					"5f6336bbda967c74a42e9932",
-					"6065881d1246154cad35d637"
-				]
-			]
-		}
-	},
 	"6936be064737190b66053bb4": {
 		"properties": {
 			"Ergonomics": -18,
 			"Recoil": -9
+		},
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a158e63060f61ca2c03e096"
+				],
+				[]
+			]
 		}
 	},
 	"6936ff8734029a096c06f95a": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -16505,7 +17846,19 @@
 					"69ce70df606696c00301a760",
 					"69ce70ff49b447e32200cc1c",
 					"69ce8ea6c5fbc777150faf69",
-					"69ce8fa8579d5d18300a1fd3"
+					"69ce8fa8579d5d18300a1fd3",
+					"6a568dda1d89fcfb35010389"
+				],
+				[]
+			]
+		}
+	},
+	"6937efd50543dcc2560a2c81": {
+		"special_properties": {
+			"ConflictingItems": [
+				[
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
 				],
 				[]
 			]
@@ -16529,8 +17882,8 @@
 	"693be003582cc8870b090b41": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.5,
+				"x": 0.3,
+				"y": 0.85,
 				"z": 75
 			}
 		}
@@ -16557,9 +17910,9 @@
 	"693be8f650fafa102607aed4": {
 		"properties": {
 			"RicochetParams": {
-				"x": 0.9,
-				"y": 0.4,
-				"z": 75
+				"x": 0.3,
+				"y": 0.7,
+				"z": 85
 			}
 		}
 	},
@@ -16598,6 +17951,13 @@
 		}
 	},
 	"697c79b1daf4828686033fcb": {
+		"properties": {
+			"RicochetParams": {
+				"x": 0.4,
+				"y": 0.9,
+				"z": 70
+			}
+		},
 		"special_properties": {
 			"ConflictingItems": [
 				[
@@ -16610,7 +17970,10 @@
 					"69c26593ea474c30ad069f8f",
 					"69cfe083ce0df53f230f29b0",
 					"69cfe095b96c8e8d3e002aa3",
-					"69d3c156cdeff2f448010e2e"
+					"69d3c156cdeff2f448010e2e",
+					"6a5615d8a166c11ce900e1a6",
+					"6a566628d1d0c640e6034ebb",
+					"6a56665a3b664c6b2c0d784a"
 				],
 				[]
 			]

@@ -161,7 +161,7 @@ class ItemFixer(DataFixer):
             if not colliders:
                 continue
             item["properties"]["armorColliders"] = sorted(
-                filter(None, (translations[collider] for collider in colliders))
+                filter(None, (translations.get(collider, collider) for collider in colliders))
             )
 
     @fixer(6)
@@ -234,7 +234,8 @@ class ItemFixer(DataFixer):
                 }
 
             if "ArmorMaterial" in props:
-                if props["ArmorMaterial"] is not None:
+                # json.tarkov.dev already gives the material name as a string
+                if isinstance(props["ArmorMaterial"], dict):
                     props["ArmorMaterial"] = props["ArmorMaterial"]["id"]
 
             if (

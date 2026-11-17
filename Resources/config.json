@@ -2,8 +2,9 @@
     "ExcludeProperties": [],
     "IncludeItems": [],
     "ExcludeItems": [],
-    "AllPrices": false,
-    "UnblacklistedPrices": true,
-    "RemoveAmmoboxFleaLimit": false,
-    "UpdateGunsmith": true
+    "RemoveAmmoboxFleaLimit": true,
+    "UpdateGunsmith": true,
+    "UnblacklistPricedItems": true,
+    "AutoUpdate": true,
+    "AutoUpdateDays": 0
 }

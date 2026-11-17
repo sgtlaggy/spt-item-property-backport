@@ -35,7 +35,6 @@ public class Mod(
 {
     private string modDir = _modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
     private Dictionary<string, List<(double?, double?)>> localeOverrides = [];
-    private HashSet<MongoId> unblacklistedItems = [];
 
     public async Task OnLoadAsync(CancellationToken cancellationToken)
     {
@@ -47,9 +46,9 @@ public class Mod(
             UpdateLocales();
         }
 
-        if (config.AllPrices || config.UnblacklistedPrices)
+        if (config.UnblacklistPricedItems)
         {
-            await UpdatePrices();
+            await UpdateFleaBlacklist();
         }
 
         if (config.RemoveAmmoboxFleaLimit)
@@ -64,7 +63,7 @@ public class Mod(
         Dictionary<MongoId, ItemProperties>? changes;
         try
         {
-            changes = await _dataService.GetItemChanges();
+            changes = await _dataService.GetItemChanges(config.AutoUpdate, config.AutoUpdateDays);
         }
         catch (Exception e)
         {
@@ -102,8 +101,6 @@ public class Mod(
                 continue;
             }
 
-            var couldSellOnFleaBeforeUpdate = item.Properties.CanSellOnRagfair ?? false;
-
             if (liveProps.Properties is not null)
             {
                 try
@@ -125,12 +122,6 @@ public class Mod(
                 {
                     _logger.Warning($"Failed to update all special properties for {item.Id}.", ex);
                 }
-            }
-
-            var canSellOnFleaAfterUpdate = item.Properties.CanSellOnRagfair ?? false;
-            if (canSellOnFleaAfterUpdate && !couldSellOnFleaBeforeUpdate)
-            {
-                unblacklistedItems.Add(item.Id);
             }
         }
 
@@ -250,7 +241,7 @@ public class Mod(
 
     private async Task UpdateQuests()
     {
-        var changes = await _dataService.GetQuestChanges();
+        var changes = await _dataService.GetQuestChanges(config.AutoUpdate, config.AutoUpdateDays);
         var quests = _templates.Quests;
 
 #if DEBUG
@@ -316,62 +307,78 @@ public class Mod(
 #endif
     }
 
-    private async Task UpdatePrices()
+    /// <summary>
+    /// Lifts SPT's flea blacklist for every item that actually trades on the flea
+    /// market in live Tarkov (i.e. it has a 24h average price).
+    ///
+    /// This deliberately does NOT touch any price value — it only flips
+    /// 'CanSellOnRagfair' and drops the id from the custom blacklist.
+    /// </summary>
+    private async Task UpdateFleaBlacklist()
     {
-        var handbook = _templates.Handbook.Items
-                       .Select((hbItem) => new KeyValuePair<MongoId, HandbookItem>(hbItem.Id, hbItem))
-                       .ToDictionary();
-        var fleaPrices = _templates.Prices;
-        var items = _templates.Items;
-
-        var inclusive = config.IncludeItems.Count > 0;
-        var changes = (await _dataService.GetPriceChanges())
-                          .Where((kvp) =>
-                          {
-                              TemplateItem? item;
-                              if (!items.TryGetValue(kvp.Key, out item))
-                              {
-                                  return false;
-                              }
-
-                              if (ContainsItemOrParent(config.ExcludeItems, item))
-                              {
-                                  return false;
-                              }
-
-                              if (inclusive && !ContainsItemOrParent(config.IncludeItems, item))
-                              {
-                                  return false;
-                              }
-
-                              return config.AllPrices || unblacklistedItems.Contains(kvp.Key);
-                          })
-                          .ToDictionary();
-
-#if DEBUG
-        Dictionary<string, object> debugData = [];
-        debugData.Add("Handbook", handbook);
-        debugData.Add("Flea", fleaPrices);
-
-        File.WriteAllText(Path.Join(modDir, "prices_before.json"), _json.Serialize(debugData, true));
-#endif
-
-        foreach (var (mongo, price) in changes)
+        HashSet<MongoId> tradable;
+        try
         {
-            if ((price.Handbook is not null) && handbook.TryGetValue(mongo, out var hbItem))
+            tradable = await _dataService.GetFleaTradable(config.AutoUpdate, config.AutoUpdateDays);
+        }
+        catch (Exception e)
+        {
+            _logger.Error($"[ItemPropertyBackport] {e.Message}");
+            return;
+        }
+
+        if (tradable.Count == 0)
+        {
+            _logger.Warning("[ItemPropertyBackport] no flea tradable data available, blacklist left as is.");
+            return;
+        }
+
+        var items = _templates.Items;
+        var custom = _ragfairConfig.Dynamic.Blacklist.Custom;
+        var inclusive = config.IncludeItems.Count > 0;
+
+        var liftedNow = 0;
+        var alreadyTradable = 0;
+        var removedFromCustom = 0;
+
+        foreach (var id in tradable)
+        {
+            if (!items.TryGetValue(id, out var item) || item.Properties is null)
             {
-                hbItem.Price = price.Handbook;
+                continue;
             }
 
-            if (price.Flea is not null)
+            if (ContainsItemOrParent(config.ExcludeItems, item))
             {
-                fleaPrices[mongo] = price.Flea.Value;
+                continue;
+            }
+
+            if (inclusive && !ContainsItemOrParent(config.IncludeItems, item))
+            {
+                continue;
+            }
+
+            if (item.Properties.CanSellOnRagfair != true)
+            {
+                item.Properties.CanSellOnRagfair = true;
+                liftedNow++;
+            }
+            else
+            {
+                alreadyTradable++;
+            }
+
+            if (custom.Remove(id))
+            {
+                removedFromCustom++;
             }
         }
 
-#if DEBUG
-        File.WriteAllText(Path.Join(modDir, "prices_after.json"), _json.Serialize(debugData, true));
-#endif
+        _logger.Success(
+            $"[ItemPropertyBackport] flea blacklist: {tradable.Count} priced items are tradable "
+            + $"({alreadyTradable} already were, {liftedNow} lifted now), "
+            + $"{removedFromCustom} removed from the custom list; prices untouched."
+        );
     }
 
     private void UpdateLocales()

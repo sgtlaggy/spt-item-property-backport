@@ -17,17 +17,32 @@ public record Config
     [JsonPropertyName("ExcludeItems")]
     public required HashSet<MongoId> ExcludeItems { get; set; }
 
-    [JsonPropertyName("AllPrices")]
-    public bool AllPrices { get; set; }
-
-    [JsonPropertyName("UnblacklistedPrices")]
-    public bool UnblacklistedPrices { get; set; }
-
     [JsonPropertyName("RemoveAmmoboxFleaLimit")]
     public bool RemoveAmmoboxFleaLimit { get; set; }
 
     [JsonPropertyName("UpdateGunsmith")]
     public bool UpdateGunsmith { get; set; }
+
+    /// <summary>
+    /// Lift SPT's flea blacklist for items that have a live flea market price.
+    /// Prices themselves are never modified.
+    /// </summary>
+    [JsonPropertyName("UnblacklistPricedItems")]
+    public bool UnblacklistPricedItems { get; set; } = true;
+
+    /// <summary>
+    /// When the db files are missing (or older than <see cref="AutoUpdateDays"/>), pull
+    /// fresh data from json.tarkov.dev instead of the mod's bundled files.
+    /// </summary>
+    [JsonPropertyName("AutoUpdate")]
+    public bool AutoUpdate { get; set; } = true;
+
+    /// <summary>
+    /// Re-download when the db files are older than this many days. 0 (default) only
+    /// refreshes when a file is missing, i.e. delete items.json to force an update.
+    /// </summary>
+    [JsonPropertyName("AutoUpdateDays")]
+    public int AutoUpdateDays { get; set; }
 }
 
 public record SpecialCaseProperties
@@ -52,13 +67,4 @@ public record ItemProperties
 
     [JsonPropertyName("special_properties")]
     public SpecialCaseProperties? SpecialProperties { get; set; }
-}
-
-public record Prices
-{
-    [JsonPropertyName("Handbook")]
-    public double? Handbook { get; set; }
-
-    [JsonPropertyName("Flea")]
-    public double? Flea { get; set; }
 }

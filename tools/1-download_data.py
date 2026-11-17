@@ -1,94 +1,131 @@
 #!/usr/bin/env python3
+"""Download live item/quest data and normalise it for the refactor step.
 
-import argparse
-import http
-import json
+tarkov.dev's GraphQL endpoint (https://api.tarkov.dev/graphql) has been returning
+"GraphQL server unavailable" since 2026-07-21, so this pulls from the flat JSON API
+that tarkov.dev itself is built from instead. The payload is then reshaped to match
+what `queries/items.gql` and `queries/quests.gql` used to return, so the following
+steps do not need to change.
+
+Outputs to `dev/`:
+    raw_items.json   untouched /regular/items payload
+    raw_tasks.json   untouched /regular/tasks payload
+    items.json       normalised items
+    quests.json      normalised quests
+"""
+
+import os
 import ssl
-import sys
+import time
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from typing import TypedDict
-from urllib import request
 
-from env import QUERIES_DIR, TARKOV_DEV_FILES
-from models import Dict
-from utils import hang, json_dump
+from env import TARKOV_DEV_FILES
+from utils import hang
 
-PARSER = argparse.ArgumentParser()
-PARSER.add_argument("-Q", "--query", nargs="*")
-ARGS = PARSER.parse_args()
+BASE_URL = "https://json.tarkov.dev/regular"
+
+SOURCES = {
+    "raw_items.json": f"{BASE_URL}/items",
+    "raw_tasks.json": f"{BASE_URL}/tasks",
+}
+
+WORKERS = 6
+CHUNK = 400_000
+USER_AGENT = "spt-item-property-backport/1.5.2"
 
 
-class GQLResponse(TypedDict):
-    data: dict[str, list] | None
-    errors: Dict | None
+def total_size(url: str) -> int:
+    req = urllib.request.Request(
+        url,
+        headers={"Range": "bytes=0-0", "User-Agent": USER_AGENT},
+    )
+    with urllib.request.urlopen(req, timeout=60, context=ssl.create_default_context()) as resp:
+        content_range = resp.headers.get("Content-Range", "")
+        if "/" not in content_range:
+            msg = f"server did not report a size: {content_range!r}"
+            raise ValueError(msg)
+        return int(content_range.rsplit("/", 1)[1])
+
+
+def fetch_range(url: str, start: int, end: int, path: Path, tries: int = 6) -> None:
+    if path.exists() and path.stat().st_size == end - start + 1:
+        return
+
+    last_error = None
+    for attempt in range(tries):
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={
+                    "Range": f"bytes={start}-{end}",
+                    "User-Agent": USER_AGENT,
+                    "Accept-Encoding": "identity",
+                },
+            )
+            with urllib.request.urlopen(
+                req, timeout=45, context=ssl.create_default_context()
+            ) as resp:
+                data = resp.read()
+
+            if len(data) == end - start + 1:
+                path.write_bytes(data)
+                return
+
+            last_error = f"short read: {len(data)} of {end - start + 1} bytes"
+        except Exception as e:  # noqa: BLE001
+            last_error = repr(e)
+
+        time.sleep(1.5 * (attempt + 1))
+
+    msg = f"chunk {start}-{end} failed: {last_error}"
+    raise RuntimeError(msg)
+
+
+def download(url: str, out_file: Path) -> None:
+    size = total_size(url)
+    parts_dir = out_file.with_suffix(out_file.suffix + ".parts")
+    parts_dir.mkdir(parents=True, exist_ok=True)
+
+    ranges = []
+    start = 0
+    while start < size:
+        end = min(start + CHUNK - 1, size - 1)
+        ranges.append((start, end))
+        start = end + 1
+
+    def work(bounds: tuple[int, int]) -> None:
+        s, e = bounds
+        fetch_range(url, s, e, parts_dir / f"{s}-{e}")
+
+    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        list(pool.map(work, ranges))
+
+    with out_file.open("wb") as out:
+        for s, e in ranges:
+            out.write((parts_dir / f"{s}-{e}").read_bytes())
+
+    for s, e in ranges:
+        (parts_dir / f"{s}-{e}").unlink()
+    parts_dir.rmdir()
+
+    print(f"  {out_file.name}: {out_file.stat().st_size} bytes")
 
 
 def main():
-    if ARGS.query:
-        for basename in ARGS.query:
-            query_file = QUERIES_DIR / f"{basename}.gql"
-            if not query_file.exists():
-                print(f"Error: {query_file.name} not found.", file=sys.stderr)
-                continue
-            download_query(query_file)
-    else:
-        for query_file in QUERIES_DIR.glob("*.gql"):
-            download_query(query_file)
+    TARKOV_DEV_FILES.mkdir(parents=True, exist_ok=True)
 
+    for name, url in SOURCES.items():
+        print(f"Downloading {url}")
+        download(url, TARKOV_DEV_FILES / name)
 
-def download_query(fp: Path):
-    name = fp.stem
-    out_file = TARKOV_DEV_FILES / f"{name}.json"
+    # reshaped to the old GraphQL response layout
+    import normalise_items
+    import normalise_tasks
 
-    try:
-        download(fp.read_text(), out_file)
-    except Exception as e:
-        print(f"Error downloading {name}: {e}", file=sys.stderr)
-    else:
-        print(f"Successfully downloaded {name}.")
-
-
-def download(query: str, fp: Path):
-    response = run_query(query)
-    gql: GQLResponse = json.loads(response)
-    data = unpack_gql(gql)
-    json_dump(data, fp)
-
-
-def unpack_gql(gql: GQLResponse) -> list:
-    err = gql.get("errors")
-    if err:
-        msg = f"Failed query:\n{json.dumps(err, indent=2)}"
-        raise ValueError(msg)
-
-    data = gql.get("data")
-    if not data:
-        msg = f"Unexpected data:\n{json.dumps(err, indent=2)}."
-        raise ValueError(msg)
-
-    for val in data.values():
-        return val
-    else:
-        msg = "Unexpected empty data."
-        raise ValueError(msg)
-
-
-def run_query(query: str) -> bytes:
-    data = json.dumps({"query": query}).encode()
-    req = request.Request(
-        "https://api.tarkov.dev/graphql",
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": "python-requests/2.33.1",  # 403 urllib is blocked
-        },
-        data=data,
-    )
-    with request.urlopen(req, context=ssl.create_default_context()) as resp:  # noqa: S310
-        if resp.status != http.HTTPStatus.OK:
-            msg = f"Unexpected response: {resp.status} {resp.msg}"
-            raise ValueError(msg)
-
-        return resp.read()
+    normalise_items.main()
+    normalise_tasks.main()
 
 
 if __name__ == "__main__":

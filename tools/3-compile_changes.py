@@ -5,17 +5,22 @@ from copy import deepcopy
 from itertools import zip_longest
 from typing import Any, Self
 
-from env import OUT_DIR, SPT_DB, SPT_DB_TEMPLATES, TMP_DIR, WTT_BACKPORT_DB
+from env import (
+    OUT_DIR,
+    SPT_DB,
+    SPT_DB_TEMPLATES,
+    TARKOV_DEV_FILES,
+    TMP_DIR,
+    WTT_BACKPORT_DB,
+)
 from models import (
     CloneItem,
     Dict,
     FixedQuest,
     MongoID,
     Pair,
-    Prices,
     SpecialProperties,
     SptBuff,
-    SptHandbook,
     SptItem,
     SptQuest,
 )
@@ -36,7 +41,6 @@ IGNORE_BUFFS = {
 class SPTData:
     items: dict[MongoID, SptItem]
     quests: dict[MongoID, SptQuest]
-    prices: dict[MongoID, Prices]
     buffs: dict[str, list[SptBuff]]
 
     def load(self) -> Self:
@@ -46,25 +50,12 @@ class SPTData:
         spt_globals: Dict = json_load(SPT_DB / "globals.json")
         self.buffs = spt_globals["config"]["Health"]["Effects"]["Stimulator"]["Buffs"]
 
-        self.prices = {}
-        handbook: SptHandbook = json_load(SPT_DB_TEMPLATES / "handbook.json")
-        prices: dict[MongoID, int] = json_load(SPT_DB_TEMPLATES / "prices.json")
-        for hb_item in handbook["Items"]:
-            mongo = hb_item["Id"]
-            flea_price = prices.get(mongo)
-            self.prices[mongo] = {"Handbook": hb_item["Price"], "Flea": flea_price}
-
         for fp in WTT_BACKPORT_DB.glob("*.json"):
             wtt_items: dict[MongoID, CloneItem] = json_load(fp)
             for mongo, clone in wtt_items.items():
                 item: SptItem = deepcopy(self.items[clone["itemTplToClone"]])
                 item["_props"].update(clone["overrideProperties"])
                 self.items[mongo] = item
-
-                self.prices[mongo] = {
-                    "Handbook": clone.get("handbookPriceRoubles"),
-                    "Flea": clone.get("fleaPriceRoubles"),
-                }
 
         return self
 
@@ -75,15 +66,6 @@ class SPTData:
             raise Exception(msg)
 
         return item["_props"]
-
-    def get_item_prices(self, mongo: MongoID) -> Prices:
-        """Returns item price as (handbook, flea)."""
-        prices = self.prices.get(mongo)
-        if prices is None:
-            msg = f"Prices for {mongo} not found."
-            raise Exception(msg)
-
-        return prices
 
     def get_quest_objectives(self, mongo: MongoID) -> list[Dict]:
         quest = self.quests.get(mongo)
@@ -391,27 +373,24 @@ def compile_quest_changes(spt: SPTData):  # noqa: C901
     json_dump(changes, OUT_DIR / "quests.json")
 
 
-def compile_price_changes(spt: SPTData):
-    live_prices: dict[MongoID, Prices] = json_load(TMP_DIR / "prices.json")
+def compile_flea_tradable(spt: SPTData):
+    """Ids of items that trade on the flea market in live Tarkov.
 
-    review: dict[MongoID, tuple[Prices, Prices | None]] = {}
+    An item only gets a 24h average price when players actually trade it, so the
+    presence of one is the signal the mod uses to lift SPT's flea blacklist. No
+    price value is written anywhere.
+    """
+    live_items: dict[MongoID, Dict] = json_load(TARKOV_DEV_FILES / "raw_items.json")[
+        "data"
+    ]["items"]
 
-    for mongo, live_price in live_prices.items():
-        try:
-            spt_price = spt.get_item_prices(mongo)
-        except Exception as e:
-            print(e, file=sys.stderr)
-            continue
+    tradable = sorted(
+        mongo
+        for mongo, item in live_items.items()
+        if item.get("avg24hPrice") is not None and mongo in spt.items
+    )
 
-        if spt_price == live_price:
-            continue
-
-        review[mongo] = (live_price, spt_price)
-
-    changes = {mongo: prices[0] for mongo, prices in review.items()}
-
-    json_dump(review, TMP_DIR / "review_prices.json")
-    json_dump(changes, OUT_DIR / "prices.json")
+    json_dump(tradable, OUT_DIR / "flea.json")
 
 
 def main():
@@ -421,7 +400,7 @@ def main():
 
     compile_item_changes(spt_data)
     compile_quest_changes(spt_data)
-    compile_price_changes(spt_data)
+    compile_flea_tradable(spt_data)
 
 
 if __name__ == "__main__":
